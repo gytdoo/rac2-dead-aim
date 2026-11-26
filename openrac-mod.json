@@ -1,0 +1,561 @@
+{
+  "format": 2,
+  "id": "rac2-dead-aim",
+  "name": "Dead Aim",
+  "version": "1.0.0",
+  "author": "gytdoo",
+  "description": "Going Commando played the Deadlocked way: lock-strafe, remappable shoulder buttons, a free camera for stick, mouse and gyro that keeps out of walls, aiming on the move, each weapon's own crosshair, aim assist and Auto Gadgets. Pause > Options > Dead Aim.",
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://github.com/gytdoo/rac2-dead-aim",
+  "api": "1.20",
+  "games": {
+    "rac2": [
+      "ntsc",
+      "ntsc2"
+    ]
+  },
+  "hooks": [],
+  "multiplayer": "input",
+  "conflicts": [
+    { "id": "rac2-contextual-wrench", "reason": "both change what the shoulder buttons and Fire do" },
+    { "id": "shoulder-camera", "reason": "both move the follow camera and hold L2" }
+  ],
+  "settings": [
+    {
+      "key": "lock_mode",
+      "name": "Lock strafe",
+      "type": "choice",
+      "default": "weapon",
+      "section": "Buttons",
+      "description": "Ratchet faces the camera while you move: never, with a weapon in hand, or always. A Toggle strafe button flips it while held.",
+      "choices": [
+        {
+          "value": "off",
+          "name": "Off"
+        },
+        {
+          "value": "weapon",
+          "name": "With weapon"
+        },
+        {
+          "value": "always",
+          "name": "Always"
+        }
+      ]
+    },
+    {
+      "key": "crouch",
+      "name": "Crouch behavior",
+      "type": "choice",
+      "default": "deadlocked",
+      "section": "Buttons",
+      "choices": [
+        {
+          "value": "game",
+          "name": "Standard"
+        },
+        {
+          "value": "deadlocked",
+          "name": "Deadlocked"
+        },
+        {
+          "value": "joe",
+          "name": "Joe Wrench"
+        }
+      ],
+      "description": "Standard: Crouch stops a running Ratchet. Deadlocked: held on the run it never stops him; with Jump he long jumps from the run, and with Square he tosses the wrench as he runs (the wrench in hand). Joe Wrench: as Deadlocked, and the toss works in the air too."
+    },
+    {
+      "key": "l1",
+      "name": "L1",
+      "type": "choice",
+      "default": "jump",
+      "section": "Buttons",
+      "choices": [
+        {
+          "value": "strafe",
+          "name": "Toggle strafe"
+        },
+        {
+          "value": "jump",
+          "name": "Jump"
+        },
+        {
+          "value": "fire",
+          "name": "Fire"
+        },
+        {
+          "value": "crouch",
+          "name": "Crouch"
+        },
+        {
+          "value": "aim",
+          "name": "Aim"
+        },
+        {
+          "value": "wrench",
+          "name": "Wrench"
+        }
+      ],
+      "description": "What L1 does on foot."
+    },
+    {
+      "key": "l2",
+      "name": "L2",
+      "type": "choice",
+      "default": "aim",
+      "section": "Buttons",
+      "choices": [
+        {
+          "value": "strafe",
+          "name": "Toggle strafe"
+        },
+        {
+          "value": "jump",
+          "name": "Jump"
+        },
+        {
+          "value": "fire",
+          "name": "Fire"
+        },
+        {
+          "value": "crouch",
+          "name": "Crouch"
+        },
+        {
+          "value": "aim",
+          "name": "Aim"
+        },
+        {
+          "value": "wrench",
+          "name": "Wrench"
+        }
+      ],
+      "description": "What L2 does on foot."
+    },
+    {
+      "key": "r1",
+      "name": "R1",
+      "type": "choice",
+      "default": "crouch",
+      "section": "Buttons",
+      "choices": [
+        {
+          "value": "strafe",
+          "name": "Toggle strafe"
+        },
+        {
+          "value": "jump",
+          "name": "Jump"
+        },
+        {
+          "value": "fire",
+          "name": "Fire"
+        },
+        {
+          "value": "crouch",
+          "name": "Crouch"
+        },
+        {
+          "value": "aim",
+          "name": "Aim"
+        },
+        {
+          "value": "wrench",
+          "name": "Wrench"
+        }
+      ],
+      "description": "What R1 does on foot."
+    },
+    {
+      "key": "r2",
+      "name": "R2",
+      "type": "choice",
+      "default": "fire",
+      "section": "Buttons",
+      "choices": [
+        {
+          "value": "strafe",
+          "name": "Toggle strafe"
+        },
+        {
+          "value": "jump",
+          "name": "Jump"
+        },
+        {
+          "value": "fire",
+          "name": "Fire"
+        },
+        {
+          "value": "crouch",
+          "name": "Crouch"
+        },
+        {
+          "value": "aim",
+          "name": "Aim"
+        },
+        {
+          "value": "wrench",
+          "name": "Wrench"
+        }
+      ],
+      "description": "What R2 does on foot."
+    },
+    {
+      "key": "auto_gadgets",
+      "name": "Auto Gadgets",
+      "type": "choice",
+      "default": "all",
+      "section": "Buttons",
+      "description": "Fire at a gadget's target puts the gadget in hand and uses it, then gives your weapon back: the Swingshot at the node you look at; All adds the Dynamo at its activators, the Tractor Beam at what it can carry, the Thermanator at pools and ice and the Hypnomatic at Receiver Bots.",
+      "choices": [
+        {
+          "value": "off",
+          "name": "Off"
+        },
+        {
+          "value": "swingshot",
+          "name": "Swingshot"
+        },
+        {
+          "value": "all",
+          "name": "All"
+        }
+      ]
+    },
+    {
+      "key": "camera_style",
+      "name": "Camera",
+      "type": "choice",
+      "default": "modern",
+      "section": "Camera",
+      "description": "Modern: a free camera for the stick, mouse and gyro that stays where you point it, keeps out of walls and aims where you look. Classic: the game's own camera and aim.",
+      "choices": [
+        {
+          "value": "modern",
+          "name": "Modern"
+        },
+        {
+          "value": "classic",
+          "name": "Classic"
+        }
+      ]
+    },
+    {
+      "key": "aim_control",
+      "name": "Aim control",
+      "type": "choice",
+      "default": "free",
+      "section": "Camera",
+      "choices": [
+        {
+          "value": "free",
+          "name": "Free Movement"
+        },
+        {
+          "value": "standard",
+          "name": "Standard"
+        }
+      ],
+      "description": "Modern camera. Free Movement: holding Aim switches to the other view and you keep moving: first person, or, if you play with the game's first-person option on, the third-person camera and its crosshair. Standard: stand still to aim."
+    },
+    {
+      "key": "crosshair_size",
+      "name": "Crosshair",
+      "type": "float",
+      "default": 0.3,
+      "min": 0.0,
+      "max": 1.5,
+      "step": 0.1,
+      "section": "Camera",
+      "description": "Modern camera: the weapon's own crosshair in third person, where the gun aims with the camera, and the size of the centre crosshair in first and third person (target markers keep theirs). Off: no crosshair in third person; in first person the game's own reticles stay, at their own size, and the ones the mod adds on the move (the wrench's, the Swingshot's, the Hypnomatic's) go."
+    },
+    {
+      "key": "camera_speed",
+      "name": "Camera speed",
+      "type": "choice",
+      "default": "normal",
+      "section": "Camera",
+      "description": "How fast the right stick turns the Modern camera: one of Deadlocked's speeds, linear, with a quick turn when the stick is held right over. Classic uses the game's own (Options > Camera).",
+      "choices": [
+        {
+          "value": "slowest",
+          "name": "Slowest"
+        },
+        {
+          "value": "slower",
+          "name": "Slower"
+        },
+        {
+          "value": "slow",
+          "name": "Slow"
+        },
+        {
+          "value": "normal",
+          "name": "Normal"
+        },
+        {
+          "value": "fast",
+          "name": "Fast"
+        }
+      ]
+    },
+    {
+      "key": "vertical_sensitivity",
+      "name": "Vertical sensitivity",
+      "type": "choice",
+      "default": "deadlocked",
+      "section": "Camera",
+      "choices": [
+        {
+          "value": "deadlocked",
+          "name": "Deadlocked"
+        },
+        {
+          "value": "uya",
+          "name": "Up Your Arsenal"
+        },
+        {
+          "value": "custom",
+          "name": "Custom"
+        }
+      ],
+      "description": "How fast the right stick turns the Modern camera on the vertical axis, against the horizontal (which Camera speed sets): Deadlocked's (two-thirds), Up Your Arsenal's (a third faster), or Custom."
+    },
+    {
+      "key": "vertical_sensitivity_custom",
+      "name": "Custom sensitivity",
+      "type": "float",
+      "default": 0.7,
+      "min": 0.3,
+      "max": 2.0,
+      "step": 0.1,
+      "section": "Camera",
+      "description": "With Vertical sensitivity on Custom: the vertical speed as a share of the horizontal (0.7 is about Deadlocked's)."
+    },
+    {
+      "key": "aim_assist",
+      "name": "Aim assist",
+      "type": "choice",
+      "default": "deadlocked",
+      "section": "Camera",
+      "description": "With a weapon in hand, near an enemy the right stick slows and the view follows it while you move: Deadlocked's (20 degrees, 45 units) or Up Your Arsenal's (15 degrees, 30 units). The mouse and gyro are never slowed.",
+      "choices": [
+        {
+          "value": "off",
+          "name": "Off"
+        },
+        {
+          "value": "deadlocked",
+          "name": "Deadlocked"
+        },
+        {
+          "value": "uya",
+          "name": "Up Your Arsenal"
+        }
+      ]
+    },
+    {
+      "key": "mouse_left",
+      "name": "Left click",
+      "type": "choice",
+      "default": "fire",
+      "section": "Mouse (older OpenRAC)",
+      "choices": [
+        {
+          "value": "strafe",
+          "name": "Toggle strafe"
+        },
+        {
+          "value": "jump",
+          "name": "Jump"
+        },
+        {
+          "value": "fire",
+          "name": "Fire"
+        },
+        {
+          "value": "crouch",
+          "name": "Crouch"
+        },
+        {
+          "value": "aim",
+          "name": "Aim"
+        },
+        {
+          "value": "wrench",
+          "name": "Wrench"
+        },
+        {
+          "value": "none",
+          "name": "Nothing"
+        }
+      ],
+      "description": "What the left mouse button does in play. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+    },
+    {
+      "key": "mouse_right",
+      "name": "Right click",
+      "type": "choice",
+      "default": "wrench",
+      "section": "Mouse (older OpenRAC)",
+      "choices": [
+        {
+          "value": "strafe",
+          "name": "Toggle strafe"
+        },
+        {
+          "value": "jump",
+          "name": "Jump"
+        },
+        {
+          "value": "fire",
+          "name": "Fire"
+        },
+        {
+          "value": "crouch",
+          "name": "Crouch"
+        },
+        {
+          "value": "aim",
+          "name": "Aim"
+        },
+        {
+          "value": "wrench",
+          "name": "Wrench"
+        },
+        {
+          "value": "none",
+          "name": "Nothing"
+        }
+      ],
+      "description": "What the right mouse button does in play. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+    },
+    {
+      "key": "mouse_middle",
+      "name": "Middle click",
+      "type": "choice",
+      "default": "none",
+      "section": "Mouse (older OpenRAC)",
+      "choices": [
+        {
+          "value": "strafe",
+          "name": "Toggle strafe"
+        },
+        {
+          "value": "jump",
+          "name": "Jump"
+        },
+        {
+          "value": "fire",
+          "name": "Fire"
+        },
+        {
+          "value": "crouch",
+          "name": "Crouch"
+        },
+        {
+          "value": "aim",
+          "name": "Aim"
+        },
+        {
+          "value": "wrench",
+          "name": "Wrench"
+        },
+        {
+          "value": "none",
+          "name": "Nothing"
+        }
+      ],
+      "description": "What the middle mouse button does in play. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+    },
+    {
+      "key": "mouse_camera",
+      "name": "Mouse camera",
+      "type": "bool",
+      "default": true,
+      "section": "Mouse (older OpenRAC)",
+      "description": "Turn the camera with the mouse. The cursor is held in the game's window while this is on or a mouse button does something. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+    },
+    {
+      "key": "mouse_speed",
+      "name": "Mouse sensitivity",
+      "type": "float",
+      "default": 1.0,
+      "min": 0.25,
+      "max": 4.0,
+      "step": 0.25,
+      "section": "Mouse (older OpenRAC)",
+      "description": "How fast the mouse turns the camera. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+    },
+    {
+      "key": "invert_y",
+      "name": "Invert Y",
+      "type": "bool",
+      "default": false,
+      "section": "Mouse (older OpenRAC)",
+      "description": "Push the mouse up to look down. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+    },
+    {
+      "key": "gyro_camera",
+      "name": "Gyro camera",
+      "type": "bool",
+      "default": false,
+      "section": "Gyro (older OpenRAC)",
+      "description": "Turn the camera by moving the controller, through OpenRAC's own gyro filter: a DualSense, DualShock 4, Switch Pro Controller, Joy-Con or Steam Deck, on Linux (a Switch pad and a DualShock 4 over Bluetooth send motion only once OpenRAC turns it on, which these builds do not). Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+    },
+    {
+      "key": "gyro_speed",
+      "name": "Gyro sensitivity",
+      "type": "float",
+      "default": 2.0,
+      "min": 0.25,
+      "max": 4.0,
+      "step": 0.25,
+      "section": "Gyro (older OpenRAC)",
+      "description": "How far the camera turns for the controller's turn (1: as far; 2, OpenRAC's default: twice as far). Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+    },
+    {
+      "key": "gyro_turn",
+      "name": "Gyro turn with",
+      "type": "choice",
+      "default": "player",
+      "section": "Gyro (older OpenRAC)",
+      "choices": [
+        {
+          "value": "player",
+          "name": "Player"
+        },
+        {
+          "value": "yaw",
+          "name": "Yaw"
+        },
+        {
+          "value": "roll",
+          "name": "Roll"
+        },
+        {
+          "value": "local",
+          "name": "Local"
+        }
+      ],
+      "description": "Which of the controller's turns turn the camera, as OpenRAC's own gyro has it: Player, its turn about the way up however it is held; Yaw, its twist held flat; Roll, leaning it like a wheel; Local, both twist and lean. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+    },
+    {
+      "key": "gyro_invert_x",
+      "name": "Gyro invert X",
+      "type": "bool",
+      "default": false,
+      "section": "Gyro (older OpenRAC)",
+      "description": "Turn the other way. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+    },
+    {
+      "key": "gyro_invert_y",
+      "name": "Gyro invert Y",
+      "type": "bool",
+      "default": false,
+      "section": "Gyro (older OpenRAC)",
+      "description": "Tilt the other way. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+    }
+  ]
+}
