@@ -46,6 +46,11 @@ Or download the ZIP from [Releases](https://github.com/gytdoo/rac2-dead-aim/rele
 | Planetoids | The camera, aiming and first person work on the Jamming Array's planetoids. First person stays level with the ground as you walk round, where the game's own tips over. |
 | Mouse and gyro | Uses OpenRAC's mouse and gyro settings where the build has them. On Linux, the gyro works with the DualSense, DualShock 4, Switch Pro Controller, Joy-Cons and Steam Deck. |
 
+<p align="center">
+<img src="https://raw.githubusercontent.com/gytdoo/rac2-dead-aim/main/docs/images/planetoid-first-person.jpg" width="70%" alt="First person on a planetoid, firing upward"><br>
+<sub>First person on the Jamming Array's planetoids: level with the ground, firing where you aim.</sub>
+</p>
+
 <details>
 <summary><b>All settings</b></summary>
 

@@ -5444,4 +5444,4 @@ void load(openrac::Mod& mod) {
 
 }  // namespace
 
-OPENRAC_MOD_CPP("rac2-dead-aim", "0.1.1", load)
+OPENRAC_MOD_CPP("rac2-dead-aim", "0.1.2", load)
