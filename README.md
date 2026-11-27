@@ -148,9 +148,9 @@ DualSense, the mod's own mouse, multiplayer parties, and Windows and macOS.
 [Reports are welcome.](https://github.com/gytdoo/rac2-dead-aim/issues)
 
 > [!NOTE]
-> On planetoids, Aim brings the camera in close instead of going to first person, since the game's
-> first person assumes straight up. The menu is drawn in OpenRAC's overlay font, as mods can't use
-> the game's.
+> On planetoids, first person is Dead Aim's own, turned with the planetoid's surface: the game's
+> tips toward the ground as you walk round. The menu is drawn in OpenRAC's overlay font, as mods
+> can't use the game's.
 
 <details>
 <summary><b>Building from source</b></summary>

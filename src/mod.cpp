@@ -366,7 +366,8 @@ struct State {
     std::uint32_t backpack_loads = 0xFFFFFFFF;
     bool in_turret = false;    // manning a turret (frame), for the pad's Fire
     float last_want = 1e9f;    // the room behind him the boom found last tick
-    float aim_zoom = 1.0f;     // the boom's length scale, eased in while aiming on a planetoid
+    bool sphere_aim = false;   // Aim held on a planetoid (Free Movement): the boom's own first person
+    bool sphere_fp = false;    // and the boom in his eyes: him hidden, the shot straight along the view
     bool fp_refused = false;   // the game did not take it: the game's aim this press
     int fp_wait = 0;
     std::int32_t fp_saved = 0;  // the player's own first-person setting, put back after
@@ -765,7 +766,7 @@ constexpr gaddr kHeroHandButton = kHero + 0x1230;      // u32: the button the it
 constexpr gaddr kHeroMelee = kHero + 0x1239;           // u8: a melee swing; +1 the wrench thrown
 constexpr gaddr kHeroHandMode = kHero + 0x1244;        // s32: 2 the item in hand live, 3 being put away
 constexpr gaddr kHeroTractorLatch = kHero + 0x5C0;     // u32: what the Tractor Beam holds
-constexpr gaddr kHeroGravityMode = kHero + 0x22C3;     // u8: walking on a gravity strip
+constexpr gaddr kHeroGravityMode = kHero + 0x22C3;     // u8: his gravity: 0 down, 1 a strip's axis, 2 a centre (a planetoid)
 constexpr gaddr kHeroWrenchForced = kHero + 0x22B7;    // u8: the wrench forced on him (ledges, hurt)
 constexpr gaddr kHeroItemBusy = kHero + 0x22B8;        // u8: the item's animation running
 constexpr gaddr kHeroBlocked = kHero + 0x22BC;         // u8: equip requests ignored (mid-swing)
@@ -1906,11 +1907,17 @@ void on_pad(int port, std::uint8_t* report, int size) {
     const bool swinging = group == 13 || group == 14 || group == 33;
     s.fp_want = s.modern && s.aim_move && done.aim && form == 0
         && (gate == strafe::Gate::Active
-            || ((s.fp_active || s.tp_active || swinging) && gate == strafe::Gate::Busy));
+            || ((s.fp_active || s.tp_active || s.sphere_aim || swinging) && gate == strafe::Gate::Busy));
     if (!done.aim) s.fp_refused = false;
     if ((s.fp_want && !s.fp_refused) || s.fp_active || s.tp_active) {
         if (size >= 2) report[strafe::kButtonsHigh] = static_cast<std::uint8_t>(report[strafe::kButtonsHigh] | strafe::kL1 | strafe::kL2);
         if (size >= strafe::kFullReport) report[strafe::kL2Pressure] = report[strafe::kL1Pressure] = 0;
+        // First person on a planetoid is the boom's, not the game's: the game's strafe held, as its
+        // own first person strafes, so he faces where the view looks and the shot goes there.
+        if (s.sphere_aim && size >= 2) {
+            report[strafe::kButtonsHigh] = static_cast<std::uint8_t>(report[strafe::kButtonsHigh] & ~strafe::kL2);
+            if (size >= strafe::kFullReport) report[strafe::kL2Pressure] = 0xFF;
+        }
     }
     // The game's aim button (L1 once mapped) held: aiming starts next tick (its reticle swapped in time).
     s.aim_input = size >= 2 && ((report[strafe::kButtonsHigh] & strafe::kL1) == 0 || (s.fp_want && !s.fp_refused));
@@ -1957,10 +1964,16 @@ V3 camera_up(const openrac::Mod& mod, const openrac::Memory& memory) {
     return l > 0.5f && l < 1.5f ? V3{u.x / l, u.y / l, u.z / l} : V3{0, 0, 1};
 }
 
-// On a planetoid's curve (more than about 18 degrees off straight up): the game's first person
-// is built about straight up, so it is not used there.
+// On a planetoid's curve (more than about 18 degrees off straight up).
 bool on_planetoid(const openrac::Mod& mod, const openrac::Memory& memory) {
     return camera_up(mod, memory).z < 0.95f;
+}
+
+// Anywhere on a planetoid, its top too (the hero's gravity about a centre, docs/notes/
+// rac2-special-situations.md), or tipped off straight up by other gravity: the game's first person
+// is built about straight up, so the boom gives first person there (aim_move_tick).
+bool sphere_gravity(const openrac::Mod& mod, const openrac::Memory& memory) {
+    return memory.read<std::uint8_t>(kHeroGravityMode) == 2 || on_planetoid(mod, memory);
 }
 
 // The game's camera override slots (docs/notes/rac2-camera-situations-2.md): bosses, arenas,
@@ -2348,6 +2361,8 @@ constexpr float kBoomSlack = 0.15f;   // out only when the way is clear by more 
 constexpr float kBoomInSeconds = 0.08f;  // in, smoothly, when nothing is in front of it yet
 constexpr int kBoomClearTicks = 6;   // and has been for this long
 constexpr float kBoomHighest = 70.0f * kDeg, kBoomLowest = -60.0f * kDeg;  // the camera above / below
+constexpr float kSphereLook = 80.0f * kDeg;  // first person on a planetoid: the view up / down
+constexpr float kLiftBack = 4.0f * kDeg;     // a tick, back into the boom's range after it
 // Free Movement's ease into first person: this many ticks, the boom in along the view to the shortest,
 // its hang point down to the first-person eye's height (the one view_from_camera gives the game).
 constexpr int kAimEaseTicks = 10;
@@ -2671,8 +2686,16 @@ void boom_tick(const openrac::Mod& mod, const openrac::Memory& memory, gaddr cam
         s.boom_fresh = true;
         for (float& w : s.want_ring) w = 1e9f;
     }
-    // Looking up (pitch > 0) takes the camera down.
-    s.boom_lift = std::clamp(s.boom_lift - pitch, kBoomLowest, kBoomHighest);
+    // Looking up (pitch > 0) takes the camera down. In first person on a planetoid the view goes
+    // further up and down; back out, a view past the third person's range eases back into it.
+    if (s.sphere_aim) {
+        s.boom_lift = std::clamp(s.boom_lift - pitch, -kSphereLook, kSphereLook);
+    } else if (s.boom_lift < kBoomLowest || s.boom_lift > kBoomHighest) {
+        const float in = std::clamp(s.boom_lift, kBoomLowest, kBoomHighest);
+        s.boom_lift += std::clamp(in - s.boom_lift, -kLiftBack, kLiftBack);
+    } else {
+        s.boom_lift = std::clamp(s.boom_lift - pitch, kBoomLowest, kBoomHighest);
+    }
     // The boom's direction is the player's (Up Your Arsenal's: collision never turns it). Taken from
     // the game's orbit when the boom takes over, then turned only by the player's turns; the game's
     // own camera re-aims its orbit away from walls each tick, and following that while holding the
@@ -2702,7 +2725,6 @@ void boom_tick(const openrac::Mod& mod, const openrac::Memory& memory, gaddr cam
     const V3 dir = fr.to_world({std::cos(s.boom_lift) * hx, std::cos(s.boom_lift) * hy, std::sin(s.boom_lift)});
     float distance = memory.read<float>(state + kStateDistance);
     if (!(distance > 0.5f && distance < 50.0f)) distance = std::fmax(s.boom_length, 1.0f);
-    distance *= s.aim_zoom;
     const float height = kHangHeight;
     const V3 pivot = read_v3(memory, state + kStatePivot);
     // The eye hangs from the anchor (+0xC0, up by the height), put only as far up from his chest as
@@ -2863,7 +2885,9 @@ void boom_tick(const openrac::Mod& mod, const openrac::Memory& memory, gaddr cam
         const float above = vec::dot(vec::sub(anchor, feet), fr.u) - kAimEaseEye;
         if (above > 0.0f) anchor = vec::sub(anchor, vec::mul(fr.u, above * k));
     }
-    {
+    if (s.sphere_fp) {
+        fade_hero(mod, memory, 0);  // first person on a planetoid: the view is his eyes'
+    } else {
         const float t = std::clamp((s.boom_length - kFadeNear) / (kFadeFar - kFadeNear), 0.0f, 1.0f);
         fade_hero(mod, memory, kFadeAlpha + static_cast<int>(std::lround(t * (0x80 - kFadeAlpha))));
     }
@@ -3239,12 +3263,12 @@ void game_crosshair(const openrac::Mod& mod, const openrac::Memory& memory, gadd
 
 // The wrench's and the gadgets' own reticles (rac2-decomp: wrench_update, swingshot_update,
 // hypnomatic_update; docs/notes/rac2-weapon-reticles.md): the game adds them only in its aim
-// (hero state 1 or 29), which Free Movement's first person never enters. So there the mod adds them as
-// the game would: the wrench's tan one, the Swingshot's red one and a blue one on the node it has
-// picked, the Hypnomatic's green ring. (The Dynamo's socket marker shows in every state already; the
-// other gadgets have none.)
+// (hero state 1 or 29), which Free Movement's first person (the game's, or the boom's on a planetoid)
+// never enters. So there the mod adds them as the game would: the wrench's tan one, the Swingshot's
+// red one and a blue one on the node it has picked, the Hypnomatic's green ring. (The Dynamo's socket
+// marker shows in every state already; the other gadgets have none.)
 void gadget_crosshair(const openrac::Mod& mod, const openrac::Memory& memory, gaddr held) {
-    if (!first_person_on(mod, memory)) return;
+    if (!first_person_on(mod, memory) && !s.sphere_fp) return;
     const std::int32_t state = memory.read<std::int32_t>(kHeroState);
     if (state == 1 || state == kAimState) return;  // the game's own
     const gaddr list = marker_list(mod, memory);
@@ -3274,9 +3298,11 @@ void gadget_crosshair(const openrac::Mod& mod, const openrac::Memory& memory, ga
 }
 
 // First person (aiming, or the first-person mode), Crosshair not 100 percent: the weapon's reticle
-// queued at the size and the list filled so the game's own full-size one is refused.
+// queued at the size and the list filled so the game's own full-size one is refused. In the boom's
+// first person on a planetoid, the wrench's and the gadgets' (a weapon's is the aim's, aim_frame).
 void first_person_crosshair(const openrac::Mod& mod, const openrac::Memory& memory, gaddr camera) {
-    if (!(aiming_now(mod, memory) || first_person_on(mod, memory) || (s.aim_input && is_weapon(memory.read<std::int32_t>(kHeroItem))))) return;
+    if (!(aiming_now(mod, memory) || first_person_on(mod, memory) || s.sphere_fp
+          || (s.aim_input && is_weapon(memory.read<std::int32_t>(kHeroItem))))) return;
     const gaddr gun = memory.read<gaddr>(kHeroHand);
     if (!in_ram(gun)) return;
     const ReticleRule* rule = reticle_rule(memory.read<std::int16_t>(gun + kMobyClass));
@@ -3284,6 +3310,7 @@ void first_person_crosshair(const openrac::Mod& mod, const openrac::Memory& memo
         gadget_crosshair(mod, memory, gun);
         return;
     }
+    if (s.sphere_fp) return;
     if (std::fabs(s.crosshair_size - 1.0f) < 1e-3f || !rule->first) return;
     const gaddr list = marker_list(mod, memory);
     if (list == 0 || memory.read<std::int32_t>(list + kMarkerCount) != 0) return;
@@ -3356,11 +3383,10 @@ void aim_frame() {
     V3 at{to[0], to[1], to[2]};
     const bool hit_any = game_line(mod, memory, from, to, hit) && hit.hit;
     if (hit_any) at = {hit.point[0], hit.point[1], hit.point[2]};
-    // On a planetoid the game bends shots round its curve: with no target under the crosshair, the
-    // gun fires along the ground the way the camera faces, as the game's own does, and the shot
-    // follows the curve.
+    // On a planetoid too the shot goes at the crosshair's point, its height included, as the game's
+    // own first person aims it. In flight the game turns a shot with the ground's up, so it keeps its
+    // angle to the ground (rac2-decomp part_steer_effect_direction; the Vaporizer's flies straight).
     const bool level = world_up(mod, memory);
-    const bool along_ground = !level && !(hit_any && hit.moby != 0);
     // The muzzle: the gun in his hand, or his chest.
     V3 muzzle{hero.x, hero.y, hero.z + 1.0f};
     const gaddr gun = memory.read<gaddr>(kHeroHand);
@@ -3372,10 +3398,9 @@ void aim_frame() {
     // no further than kAimBend off his facing (his facing angle on level ground; on a planetoid his
     // look row, which the game fills with his facing each tick).
     const Frame fr = frame_about(camera_up(mod, memory));
-    const V3 dl_local = fr.to_local(along_ground ? f : d);
+    const V3 dl_local = fr.to_local(d);
     float yaw = std::atan2(dl_local.y, dl_local.x);
-    const float lift = along_ground ? 0.0f
-                                    : std::clamp(std::asin(std::clamp(dl_local.z / dl, -1.0f, 1.0f)), -kAimPitchLimit, kAimPitchLimit);
+    const float lift = std::clamp(std::asin(std::clamp(dl_local.z / dl, -1.0f, 1.0f)), -kAimPitchLimit, kAimPitchLimit);
     const V3 look = fr.to_local(read_v3(memory, kHeroLookRow));
     const float facing = level ? memory.read<float>(kHeroFacing) : std::atan2(look.y, look.x);
     yaw = facing + std::clamp(wrap_pi(yaw - facing), -kAimBend, kAimBend);
@@ -3714,8 +3739,6 @@ constexpr gaddr kHeroFirstPersonEye = kHero + 0x151C;    // f32: the eye's heigh
 constexpr gaddr kHeroGunAway = kHero + 0x14F8;
 constexpr gaddr kHeroAimMode = kHero + 0x1500;  // s32: the aim some weapons take instead of state 29
 
-constexpr float kAimZoom = 0.5f;  // Aim held on a planetoid: the boom this much of its length
-
 // The first-person view set to look where the camera looks, no steeper than kSteepestView (true
 // when it was).
 constexpr float kSteepestView = 0.98f;  // the z of a unit view
@@ -3771,15 +3794,23 @@ void aim_move_tick(openrac::Mod& mod) {
     const auto memory = mod.memory();
     const gaddr toggle = boot_global(mod, kFirstPersonToggle);
     // Any item in hand (a weapon, the wrench, a gadget), as the game's own aim (L1's look) takes any.
-    // On a planetoid the aim stays in third person, the boom eased in over the shoulder.
-    const bool planetoid = mod.play_status().phase == OPENRAC_PLAY_PLAYING && on_planetoid(mod, memory);
-    const float zoom_to = planetoid && s.fp_want && !s.tp_active ? kAimZoom : 1.0f;
-    s.aim_zoom += (zoom_to - s.aim_zoom) * (1.0f - std::exp(-(1.0f / 60.0f) / 0.12f));
+    const bool planetoid = mod.play_status().phase == OPENRAC_PLAY_PLAYING && sphere_gravity(mod, memory);
     const bool held = s.fp_want && !s.fp_refused && memory.read<std::uint8_t>(kHeroForm) == 0
         && memory.read<gaddr>(kHeroVehicle) == 0 && mod.play_status().phase == OPENRAC_PLAY_PLAYING;
-    const bool want = held && !planetoid;
     if (s.fp_grace > 0) --s.fp_grace;
-    if (!want) s.fp_ease = 0;  // let go before it was in: the boom eases back out
+    // On a planetoid the game's first person is no use (it is built about straight up: off the top
+    // its view tips toward the ground, then off into space). There the boom is the first person: the
+    // same ease into his eyes as on level ground, then kept there, turned about the planetoid's up,
+    // him hidden; let go, it eases back out as from the game's.
+    // Kept while Aim is held, wherever he walks.
+    s.sphere_aim = held && (planetoid || s.sphere_aim) && s.modern && s.boom_owned && !s.fp_active && !s.tp_active;
+    const bool want = held && !planetoid && !s.sphere_aim;
+    if (s.sphere_aim) {
+        if (s.fp_ease < kAimEaseTicks && s.fp_ease++ == 0) s.fp_ease_from = s.boom_length;
+    } else if (!want) {
+        s.fp_ease = 0;  // let go before it was in: the boom eases back out
+    }
+    s.sphere_fp = s.sphere_aim && s.fp_ease >= kAimEaseTicks;
     // The player's own first person, swapped for third person while held.
     if (s.tp_active) {
         if (held) return;

@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Planetoids: holding Aim goes into first person there too, Dead Aim's own, kept level with the
+  planetoid's surface wherever you walk (the game's own tips toward the ground, then off into space).
+  The wrench's and gadgets' crosshairs show in it.
+- Planetoids: shots go where the crosshair points, up and down included, instead of always along the
+  ground. In flight they keep their angle to the surface, as the game's own first-person shots do.
+
 ## 0.1.0
 
 The first pre-release, for testing. Every setting is in **Pause → Options → Dead Aim** and in the
