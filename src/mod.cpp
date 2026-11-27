@@ -4190,7 +4190,7 @@ std::vector<Row> camera_rows() {
     rows.push_back(crosshair);
     Row speed;
     speed.label = "Camera Speed";
-    speed.help = "Deadlocked's camera speed, with a quick turn at full tilt.";
+    speed.help = "Deadlocked's speeds. Full stick sideways turns faster.";
     speed.choices = [] { return menu_names(kCameraSpeedNames); };
     speed.current = [] { return s.camera_speed; };
     speed.set = [](int i) {

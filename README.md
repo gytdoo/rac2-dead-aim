@@ -2,7 +2,7 @@
 
 # Dead Aim
 
-### Ratchet & Clank: Going Commando, played the Deadlocked way
+### Deadlocked-style controls and camera for Ratchet & Clank: Going Commando
 
 [![OpenRAC mod](https://img.shields.io/badge/OpenRAC-mod-2563eb)](https://openrac.dev/)
 [![Going Commando](https://img.shields.io/badge/game-Going%20Commando-f59e0b)](#compatibility)
@@ -13,9 +13,9 @@
 
 </div>
 
-A free camera for the stick, mouse and gyro, aiming on the move, lock-strafe, remappable shoulder
-buttons, Deadlocked's crouch, camera and aim assist, and gadgets that come out on their own. Every
-setting lives in the game's own menu: **Pause → Options → Dead Aim**.
+An [OpenRAC](https://openrac.dev/) mod that brings Going Commando's controls and camera in line with
+Up Your Arsenal and Deadlocked. All settings are in **Pause → Options → Dead Aim** and in the
+launcher.
 
 ## Install
 
@@ -28,20 +28,23 @@ Or download the ZIP from [Releases](https://github.com/gytdoo/rac2-dead-aim/rele
 
 ## Features
 
-| | |
+| Feature | What it does |
 |---|---|
-| 🎥 **Modern camera** | Stays where you point it with the stick, mouse or gyro, and is kept out of walls the way Up Your Arsenal's is. **Classic** leaves the game's camera untouched. |
-| 🎯 **Aim where you look** | Shots go where the crosshair is, with each weapon's own reticle, sized by one **Crosshair** setting. |
-| 🏃 **Free Movement aiming** | Hold Aim to ease into first person and keep moving. **Standard** is the game's stand-still aim. |
-| 🔒 **Lock-strafe** | Keeps Ratchet's back to the camera while a weapon is out, always, or never. |
-| 🎮 **Remappable shoulders** | L1, L2, R1 and R2 can each Jump, Fire, Crouch, Aim, Wrench or toggle strafe. |
-| 🔧 **Crouch Behavior** | **Deadlocked**: Crouch never stops a run. Crouch + Jump long jumps, Crouch + Square tosses the wrench on the move. **Joe Wrench** tosses it in the air too. |
-| 🧲 **Auto Gadgets** | Fire at a Swingshot node, a Dynamo socket, something to carry, ice or water to freeze, or a Receiver Bot, and the right gadget comes out, then your weapon comes back. |
-| 🧭 **Deadlocked's feel** | Its five camera speeds with the quick turn, its vertical sensitivity (or Up Your Arsenal's, or your own), and its aim assist (or Up Your Arsenal's). |
-| 🫥 **Tight spaces** | In close quarters the camera comes in and Ratchet fades, instead of the camera fighting him. |
-| 💥 **Fire does it all** | Turrets fire and aim on your controls, Spiderbots and Visibombs detonate, and the Hypnomatic's robot takes your layout. |
-| 🌍 **Planetoids** | The camera and aim follow the Jamming Array's little worlds. |
-| 🕹️ **Mouse and gyro** | OpenRAC's own settings where the build has them; gyro from the DualSense, DualShock 4, Switch Pro Controller, Joy-Cons and Steam Deck. |
+| Modern camera | A free camera for the stick, mouse and gyro. It stays where you point it and is kept out of walls with a swept sphere, as in Up Your Arsenal. **Classic** keeps the game's own camera. |
+| Aiming | Shots go where the crosshair points. Each weapon shows its own reticle, and **Crosshair** sets their size. |
+| Aim Control | **Free Movement**: holding Aim moves the view into first person and you can keep walking. **Standard**: the game's stand-still aim. |
+| Lock-strafe | Ratchet keeps his back to the camera while a weapon is out, always, or never. |
+| Shoulder buttons | L1, L2, R1 and R2 can each be Jump, Fire, Crouch, Aim, Wrench or Toggle strafe. |
+| Crouch Behavior | **Deadlocked**: holding Crouch doesn't stop a run, so Crouch + Jump long jumps and Crouch + Square throws the wrench while running. **Joe Wrench** also throws it in the air. **Standard** is the game's crouch. |
+| Auto Gadgets | Fire at a gadget's target (a Swingshot node, a Dynamo socket, something the Tractor Beam can carry, water or ice for the Thermanator, a Receiver Bot) equips and uses that gadget, then switches back to your weapon. |
+| Camera speed | Deadlocked's five stick speeds. Holding the stick fully sideways turns faster, as in Deadlocked. |
+| Vertical sensitivity | The vertical camera speed relative to the horizontal: Deadlocked's, Up Your Arsenal's, or your own. |
+| Aim assist | Near an enemy, the stick slows down and the camera follows the target, with Deadlocked's or Up Your Arsenal's values. The mouse and gyro are not affected. |
+| Tight spaces | With little room behind Ratchet, the camera moves in close and Ratchet fades out. |
+| Turrets and remotes | Fire shoots turrets, and the right stick, mouse and gyro aim them. Fire detonates Spiderbots and Visibombs. |
+| Hypnomatic robot | The robot uses your button layout. |
+| Planetoids | The camera and aim work on the Jamming Array's planetoids. |
+| Mouse and gyro | Uses OpenRAC's mouse and gyro settings where the build has them. The gyro works with the DualSense, DualShock 4, Switch Pro Controller, Joy-Cons and Steam Deck. |
 
 <details>
 <summary><b>All settings</b></summary>
@@ -120,22 +123,22 @@ robot.
 
 | OpenRAC | Works | Notes |
 |---|:---:|---|
-| 1.0 releases | ❌ | too old to load it |
-| 1.1.0 release | ✅ | settings as text pages, the mod's own mouse and gyro |
-| Development builds | ✅ | the full menu page, OpenRAC's own mouse and gyro |
+| 1.0 releases | No | too old to load it |
+| 1.1.0 release | Yes | settings as text pages, the mod's own mouse and gyro |
+| Development builds | Yes | the full menu page, OpenRAC's own mouse and gyro |
 
 - **Game:** Going Commando, USA v1.01 and v2.00. **Platform:** Linux x86_64.
-- **Multiplayer:** each player's own: others in a party don't need it, and everyone keeps their own
+- **Multiplayer:** each player's own. Others in a party don't need it, and everyone keeps their own
   layout and camera.
 
 > [!IMPORTANT]
-> Dead Aim can't run alongside **Contextual Wrench and Fire** or **Shoulder Camera** (the launcher
-> warns you). With Joebannerlord's **Auto Gadgets** installed, Dead Aim's own Auto Gadgets steps
-> aside.
+> Dead Aim can't run alongside **Contextual Wrench and Fire** or **Shoulder Camera**; the launcher
+> warns about both. With Joebannerlord's **Auto Gadgets** installed, Dead Aim's own Auto Gadgets turns
+> itself off.
 
 ## Status
 
-Played on the 1.1.0 release and development builds: the camera, aiming, crosshairs, menus, Auto
+Tested by hand on the 1.1.0 release and development builds: the camera, aiming, crosshairs, menus, Auto
 Gadgets, grinding, cranks, swimming, the Glider, the Levitator, Giant Clank, the mouse and the
 DualSense gyro. Automated runs cover a pass through every level, the planetoids, turrets, the
 Hypnomatic's robot and Crouch Behavior.
