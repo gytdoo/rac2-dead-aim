@@ -32,7 +32,7 @@ Or download the ZIP from [Releases](https://github.com/gytdoo/rac2-dead-aim/rele
 |---|---|
 | Modern camera | A free camera for the stick, mouse and gyro. It stays where you point it and is kept out of walls with a swept sphere, as in Up Your Arsenal. **Classic** keeps the game's own camera. |
 | Aiming | Shots go where the crosshair points. Each weapon shows its own reticle, and **Crosshair** sets their size. |
-| Aim Control | **Free Movement**: holding Aim moves the view into first person and you can keep walking. **Standard**: the game's stand-still aim. |
+| Aim Control | **Free Movement**: holding Aim switches to first person and you can keep walking (with the game's first-person option on, it switches to third person). **Standard**: the game's stand-still aim. |
 | Lock-strafe | Ratchet keeps his back to the camera while a weapon is out, always, or never. |
 | Shoulder buttons | L1, L2, R1 and R2 can each be Jump, Fire, Crouch, Aim, Wrench or Toggle strafe. |
 | Crouch Behavior | **Deadlocked**: holding Crouch doesn't stop a run, so Crouch + Jump long jumps and Crouch + Square throws the wrench while running. **Joe Wrench** also throws it in the air. **Standard** is the game's crouch. |

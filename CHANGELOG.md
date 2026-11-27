@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Auto Gadgets: the Tractor Beam keeps hold of what it carries through a jump (it let go at once),
+  and when it does let go with Fire held, your weapon comes back without firing.
+
 ## 0.1.1
 
 Planetoids and first person.

@@ -1495,8 +1495,9 @@ void auto_pad(std::uint8_t* report, int size, strafe::Gate gate) {
                         auto_restore(mod, memory, "Fire with no target");
                     }
                 }
-            } else if (g == Gadget::Tractor && (!fire || jumping)) {
-                auto_cancel(memory, jumping ? "a jump" : "Fire let go");  // dropped
+            } else if (g == Gadget::Tractor && !fire) {
+                // Held while Fire is, jumps too: the hold is the game's (lost: auto_frame).
+                auto_cancel(memory, "Fire let go");  // dropped
             } else if (g == Gadget::Thermanator || g == Gadget::Hypnomatic) {
                 // Held while Fire is and on the same target (a frozen pool thawing is a new one).
                 bool f = false;
@@ -1632,6 +1633,7 @@ void auto_frame() {
                 auto_cancel(memory, "fired");
             } else if (g == Gadget::Tractor && memory.read<gaddr>(kHeroTractorLatch) != a.target) {
                 auto_cancel(memory, "its hold lost");
+                if (a.fire_was) a.swallow = true;  // the weapon back without firing, until Fire is let go
             }
             break;
         case AutoPhase::Canceling: {
