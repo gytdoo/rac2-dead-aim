@@ -1,14 +1,16 @@
 # Changelog
 
-## Unreleased
+## 0.1.1
+
+Planetoids and first person.
 
 - Planetoids: first person (holding Aim, or with the game's first-person option on) stays level with
   the planetoid's surface as you walk round. The game's own keeps its view fixed and tips toward the
   ground, then off into space. Holding Aim there now goes into first person, as everywhere else.
 - Planetoids: shots go where the crosshair points, up and down included, instead of always along the
   ground. In flight they keep their angle to the surface, as the game's own first-person shots do.
-- With the game's first-person option on, lock-strafe no longer fires the weapon (the game's strafe
-  button fires in first person).
+- Fixed: with the game's first-person option on and a weapon out, lock-strafe fired the weapon by
+  itself (the game's strafe button fires in first person).
 
 ## 0.1.0
 

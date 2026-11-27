@@ -43,7 +43,7 @@ Or download the ZIP from [Releases](https://github.com/gytdoo/rac2-dead-aim/rele
 | Tight spaces | With little room behind Ratchet, the camera moves in close and Ratchet fades out. |
 | Turrets and remotes | Fire shoots turrets, and the right stick, mouse and gyro aim them. Fire detonates Spiderbots and Visibombs. |
 | Hypnomatic robot | The robot uses your button layout. |
-| Planetoids | The camera and aim work on the Jamming Array's planetoids. |
+| Planetoids | The camera, aiming and first person work on the Jamming Array's planetoids. First person stays level with the ground as you walk round, where the game's own tips over. |
 | Mouse and gyro | Uses OpenRAC's mouse and gyro settings where the build has them. On Linux, the gyro works with the DualSense, DualShock 4, Switch Pro Controller, Joy-Cons and Steam Deck. |
 
 <details>
@@ -102,8 +102,9 @@ the gadget already in hand, Fire does what the game's Circle does.
   `steam-devices` rules give it).
 - **Older builds** (the 1.1.0 release): the mod's own mouse buttons, mouse camera and gyro, in the
   Mouse and Gyro tabs. There, third-party Switch pads send no motion.
-- **Outside Linux** the mod can't read the controller's gyro, so there is no Gyro tab. On
-  development builds OpenRAC's own gyro still turns the game's cameras.
+- **Outside Linux** the mod can't read the controller's gyro, so there is no Gyro tab. On Windows
+  and macOS development builds OpenRAC's own gyro still turns the game's cameras; OpenRAC's Android
+  app has no gyro yet.
 - **On Android** the mod leaves the mouse alone, as OpenRAC's touch controls use it: no Mouse tab.
 
 </details>
@@ -139,8 +140,9 @@ controller gets.
 
 Tested by hand on Linux, on the 1.1.0 release and development builds: the camera, aiming,
 crosshairs, menus, Auto Gadgets, grinding, cranks, swimming, the Glider, the Levitator, the Charge
-Boots with Deadlocked crouch, Giant Clank, the mouse and the DualSense gyro. Automated runs cover a
-pass through every level, the planetoids, turrets, the Hypnomatic's robot and Crouch Behavior.
+Boots with Deadlocked crouch, Giant Clank, the planetoids in first and third person, the mouse and
+the DualSense gyro. Automated runs cover a pass through every level, the planetoids, turrets, the
+Hypnomatic's robot and Crouch Behavior.
 Played on Android too, with OpenRAC's touch controls.
 
 Not yet verified: the wrench toss and Auto Gadgets on v2.00, gyro on controllers other than the

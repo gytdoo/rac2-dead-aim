@@ -24,6 +24,7 @@ The source's comments point at them.
 | [rac2-lobbed-aim-reticle.md](rac2-lobbed-aim-reticle.md) | thrown and lobbed weapons |
 | [rac2-weapon-reticles.md](rac2-weapon-reticles.md) | every HUD reticle and its gate |
 | [rac2-special-situations.md](rac2-special-situations.md) | hero state groups, cameras and buttons per situation |
+| [rac2-planetoids.md](rac2-planetoids.md) | the planetoids: their gravity, the game's first person and shots there |
 | [rac2-menu-ui.md](rac2-menu-ui.md) | a mod's menu page: the game's glyphs, the renderer and its limits |
 | [rac2-camera-situations-2.md](rac2-camera-situations-2.md) | camera hand-offs, override cameras and the stuck-camera rescue |
 | [rac2-robot-and-turret-controls.md](rac2-robot-and-turret-controls.md) | the Hypnomatic's robots, turrets and remote-controlled gadgets |

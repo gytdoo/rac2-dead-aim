@@ -41,11 +41,12 @@ wrench toss have been checked less on v2.00.
 | Android arm64 (OpenRAC's app) | Yes | No | Yes |
 
 - **Dead Aim's gyro** reads controllers through Linux's raw HID devices, so it is only in the
-  desktop Linux builds; the others have no Gyro tab.
+  desktop Linux builds; the others have no Gyro tab. On Windows and macOS development builds,
+  OpenRAC's own gyro still turns the game's cameras (Classic, the Glider, vehicles), and Steam
+  Input's "gyro as mouse" turns the Modern camera. OpenRAC's Android app has no gyro yet, on any
+  build.
 - **On Android** OpenRAC gives screen touches as the mouse, so Dead Aim leaves the mouse to
-  OpenRAC's touch buttons and camera: no Mouse tab, and a touch is never a click. There, on development builds, OpenRAC's own gyro
-  still turns the game's cameras (Classic, the Glider, vehicles), and Steam Input's "gyro as mouse"
-  turns the Modern camera.
+  OpenRAC's touch buttons and camera: no Mouse tab, and a touch is never a click.
 - **OpenRAC's settings** changed mid-game reach Dead Aim at once on Linux. Elsewhere it uses them
   as they were when the game started.
 
@@ -74,6 +75,7 @@ own driver reads too. Read access to the controller's device is needed; Steam's 
   1.1.0 doesn't have.
 - **On development builds**, OpenRAC's own gyro also turns the game's own cameras (Classic, the
   Glider, vehicles) for any controller it supports. Dead Aim's reading covers the Modern camera.
+  OpenRAC's Android app has no gyro yet.
 - **Not read:** third-party PlayStation pads, 8BitDo pads in their own modes and the Steam
   Controller, as SDL has to configure them first. Steam Input's "gyro as mouse" works with any of
   them, through the mouse.
