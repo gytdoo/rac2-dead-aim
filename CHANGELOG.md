@@ -40,10 +40,12 @@ launcher.
   mod's own Mouse and Gyro tabs.
 - On Linux, the gyro works with the DualSense, DualShock 4, Switch Pro Controller, Joy-Cons and
   Steam Deck, through a port of OpenRAC's own gyro filter.
+- On Android, touches stay with OpenRAC's touch buttons and camera.
 
 ### Compatibility
 
 - OpenRAC 1.1.0 or a development build, with Going Commando USA v1.01 or v2.00.
-- Built for Linux, Windows, macOS and Android. Only Linux has been tested so far.
+- Built for Linux, Windows, macOS and Android. Linux and Android have been tested; Windows and macOS
+  not yet.
 - Joebannerlord's Auto Gadgets takes over from Dead Aim's own. Contextual Wrench and Fire, Steam
   Deck Pack, RAC-Board and Shoulder Camera are declared conflicts.

@@ -38,7 +38,7 @@ wrench toss have been checked less on v2.00.
 | Linux arm64 | Yes | Yes | Not yet |
 | Windows x86_64 | Yes | No | Not yet |
 | macOS (Apple silicon and Intel) | Yes | No | Not yet |
-| Android arm64 (OpenRAC's app) | Yes | No | Not yet |
+| Android arm64 (OpenRAC's app) | Yes | No | Yes |
 
 - **Dead Aim's gyro** reads controllers through Linux's raw HID devices, so it is only in the
   desktop Linux builds; the others have no Gyro tab.

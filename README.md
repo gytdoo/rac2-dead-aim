@@ -125,9 +125,9 @@ robot.
 ## Compatibility
 
 Going Commando USA v1.01 and v2.00, with the OpenRAC 1.1.0 release or a development build. The 1.0
-releases can't load it. Built for Linux, Windows, macOS and Android; tested on Linux so far. See
-[Versions and support](docs/versions.md) for what each OpenRAC build, disc, platform and controller
-gets.
+releases can't load it. Built for Linux, Windows, macOS and Android; tested on Linux and Android.
+See [Versions and support](docs/versions.md) for what each OpenRAC build, disc, platform and
+controller gets.
 
 > [!IMPORTANT]
 > Dead Aim can't run alongside **Contextual Wrench and Fire**, **Steam Deck Pack**, **RAC-Board** or
@@ -141,9 +141,10 @@ Tested by hand on Linux, on the 1.1.0 release and development builds: the camera
 crosshairs, menus, Auto Gadgets, grinding, cranks, swimming, the Glider, the Levitator, the Charge
 Boots with Deadlocked crouch, Giant Clank, the mouse and the DualSense gyro. Automated runs cover a
 pass through every level, the planetoids, turrets, the Hypnomatic's robot and Crouch Behavior.
+Played on Android too, with OpenRAC's touch controls.
 
 Not yet verified: the wrench toss and Auto Gadgets on v2.00, gyro on controllers other than the
-DualSense, the mod's own mouse, multiplayer parties, and Windows, macOS and Android.
+DualSense, the mod's own mouse, multiplayer parties, and Windows and macOS.
 [Reports are welcome.](https://github.com/gytdoo/rac2-dead-aim/issues)
 
 > [!NOTE]
