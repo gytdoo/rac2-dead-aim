@@ -2,11 +2,13 @@
 
 ## Unreleased
 
-- Planetoids: holding Aim goes into first person there too, Dead Aim's own, kept level with the
-  planetoid's surface wherever you walk (the game's own tips toward the ground, then off into space).
-  The wrench's and gadgets' crosshairs show in it.
+- Planetoids: first person (holding Aim, or with the game's first-person option on) stays level with
+  the planetoid's surface as you walk round. The game's own keeps its view fixed and tips toward the
+  ground, then off into space. Holding Aim there now goes into first person, as everywhere else.
 - Planetoids: shots go where the crosshair points, up and down included, instead of always along the
   ground. In flight they keep their angle to the surface, as the game's own first-person shots do.
+- With the game's first-person option on, lock-strafe no longer fires the weapon (the game's strafe
+  button fires in first person).
 
 ## 0.1.0
 
