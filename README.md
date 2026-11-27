@@ -35,7 +35,7 @@ Or download the ZIP from [Releases](https://github.com/gytdoo/rac2-dead-aim/rele
 | Aim Control | **Free Movement**: holding Aim switches to first person and you can keep walking (with the game's first-person option on, it switches to third person). **Standard**: the game's stand-still aim. |
 | Lock-strafe | Ratchet keeps his back to the camera while a weapon is out, always, or never. |
 | Shoulder buttons | L1, L2, R1 and R2 can each be Jump, Fire, Crouch, Aim, Wrench or Toggle strafe. |
-| Crouch Behavior | **Deadlocked**: holding Crouch doesn't stop a run, so Crouch + Jump long jumps and Crouch + Square throws the wrench while running. **Joe Wrench** also throws it in the air. **Standard** is the game's crouch. |
+| Crouch Behavior | **Deadlocked**: holding Crouch doesn't stop a run, so Crouch + Jump long jumps and Crouch + Square throws the wrench while running, swapping to it first if a weapon is out. **Joe Wrench** also throws it in the air. **Standard** is the game's crouch. |
 | Auto Gadgets | Fire at a gadget's target (a Swingshot node, a Dynamo socket, something the Tractor Beam can carry, water or ice for the Thermanator, a Receiver Bot) equips and uses that gadget, then switches back to your weapon. |
 | Camera speed | Deadlocked's five stick speeds. Holding the stick fully sideways turns faster, as in Deadlocked. |
 | Vertical sensitivity | The vertical camera speed relative to the horizontal: Deadlocked's, Up Your Arsenal's, or your own. |

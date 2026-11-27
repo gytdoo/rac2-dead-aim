@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Crouch Behavior: Crouch + Square on the run with a weapon out swaps to the wrench and throws it
+  without stopping (it stopped him in the game's crouch).
+
 ## 0.1.2
 
 - Auto Gadgets: the Tractor Beam keeps hold of what it carries through a jump (it let go at once),

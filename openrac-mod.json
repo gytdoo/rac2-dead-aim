@@ -65,7 +65,7 @@
           "name": "Joe Wrench"
         }
       ],
-      "description": "Standard: Crouch stops a running Ratchet. Deadlocked: held on the run it never stops him; with Jump he long jumps from the run, and with Square he tosses the wrench as he runs (the wrench in hand). Joe Wrench: as Deadlocked, and the toss works in the air too."
+      "description": "Standard: Crouch stops a running Ratchet. Deadlocked: held on the run it never stops him; with Jump he long jumps from the run, and with Square he tosses the wrench as he runs (swapping to it first if a weapon is out). Joe Wrench: as Deadlocked, and the toss works in the air too."
     },
     {
       "key": "l1",

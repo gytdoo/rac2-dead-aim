@@ -1720,6 +1720,7 @@ struct Toss {
     bool posed = false;        // the arm turned
     bool square_was = true;    // Square last report (a press is its going down)
     bool square_eaten = false; // the press the toss took, kept from the game until let go
+    int swap = 0;              // ticks since the wrench was asked for, to toss once in hand (0 none)
 };
 Toss g_toss;
 
@@ -1807,7 +1808,9 @@ void toss_tick(const openrac::Mod& mod) {
 }
 
 // The pad's part, in on_pad after the player's buttons are the game's: Crouch held back on the run
-// (strafe::RunCrouch), Square with it tossing the wrench (taken from the game until let go).
+// (strafe::RunCrouch), Square with it tossing the wrench (taken from the game until let go); with
+// another item in hand, the wrench swapped in first, on the run.
+constexpr int kSwapTicks = 45;  // the longest the wrench may take to come out for a toss
 void crouch_pad(const openrac::Mod& mod, const openrac::Memory& memory, std::uint8_t* report, int size, bool deadlocked) {
     const auto down = [&](std::uint8_t bit) { return size >= 2 && (report[strafe::kButtonsHigh] & bit) == 0; };
     const bool crouch = down(strafe::kR1), square = down(strafe::kSquare);
@@ -1816,6 +1819,7 @@ void crouch_pad(const openrac::Mod& mod, const openrac::Memory& memory, std::uin
     if (!deadlocked) {
         s.run_crouch.reset();
         g_toss.aim = g_toss.square_eaten = false;
+        g_toss.swap = 0;
         return;
     }
     const std::int32_t group = memory.read<std::int32_t>(kHeroGroup);
@@ -1828,8 +1832,27 @@ void crouch_pad(const openrac::Mod& mod, const openrac::Memory& memory, std::uin
         if (can_toss) {
             g_toss.motion.request();
             g_toss.square_eaten = used = true;
+        } else if (group == 1 && memory.read<std::int32_t>(kHeroItem) != kWrenchItem && can_equip(mod, memory)
+                   && memory.read<std::int32_t>(kHeroRequest) == 0) {
+            // Another item in hand: the wrench asked for (the game swaps it in as he runs, Crouch
+            // still held back), and tossed as soon as it is ready.
+            memory.write<std::int32_t>(kHeroRequest, kWrenchItem);
+            g_toss.swap = 1;
+            g_toss.square_eaten = used = true;
         } else if (group == 1) {
-            to_game = true;  // no wrench to toss: the game's own throw (it brings the wrench out)
+            to_game = true;  // no toss to be had: the game's own throw (it brings the wrench out)
+        }
+    } else if (g_toss.swap > 0) {
+        // The swap under way: tossed once the wrench is ready; given up if Crouch is let go, he stops
+        // or it takes too long (the wrench stays in hand).
+        if (can_toss) {
+            g_toss.motion.request();
+            g_toss.swap = 0;
+            used = true;
+        } else if (!crouch || !moving || ++g_toss.swap > kSwapTicks) {
+            g_toss.swap = 0;
+        } else {
+            used = true;
         }
     }
     if (!square) g_toss.square_eaten = false;
