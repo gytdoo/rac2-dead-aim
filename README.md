@@ -97,11 +97,11 @@ the gadget already in hand, Fire does what the game's Circle does.
   settings (change them with **`** or **Start + Select**), and applies them where the Modern camera
   turns itself.
 - **The gyro**: OpenRAC doesn't share its gyro with mods, so the mod reads the controller the way
-  OpenRAC does, with SDL's report layouts and a port of OpenRAC's own gyro filter. It only listens,
-  follows the controller you're using, and needs read access to the controller (Steam's
+  OpenRAC does, with SDL's report layouts and a port of OpenRAC's own gyro filter. It sends the
+  controller no commands, follows the controller you're using, and needs read access to it (Steam's
   `steam-devices` rules give it).
 - **Older builds** (the 1.1.0 release): the mod's own mouse buttons, mouse camera and gyro, in the
-  Mouse and Gyro tabs. There, a Switch pad, or a DualShock 4 over Bluetooth, sends no motion.
+  Mouse and Gyro tabs. There, third-party Switch pads send no motion.
 
 </details>
 
@@ -121,20 +121,14 @@ robot.
 
 ## Compatibility
 
-| OpenRAC | Works | Notes |
-|---|:---:|---|
-| 1.0 releases | No | too old to load it |
-| 1.1.0 release | Yes | settings as text pages, the mod's own mouse and gyro |
-| Development builds | Yes | the full menu page, OpenRAC's own mouse and gyro |
-
-- **Game:** Going Commando, USA v1.01 and v2.00. **Platform:** Linux x86_64.
-- **Multiplayer:** each player's own. Others in a party don't need it, and everyone keeps their own
-  layout and camera.
+Going Commando USA v1.01 and v2.00, on Linux x86_64, with the OpenRAC 1.1.0 release or a
+development build. The 1.0 releases can't load it. See [Versions and support](docs/versions.md) for
+what each OpenRAC build, disc and controller gets.
 
 > [!IMPORTANT]
 > Dead Aim can't run alongside **Contextual Wrench and Fire** or **Shoulder Camera**; the launcher
 > warns about both. With Joebannerlord's **Auto Gadgets** installed, Dead Aim's own Auto Gadgets turns
-> itself off.
+> itself off. Every other Going Commando mod works alongside it.
 
 ## Status
 

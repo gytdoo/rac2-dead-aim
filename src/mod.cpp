@@ -2006,10 +2006,12 @@ void turn_camera(const openrac::Memory& memory, gaddr camera, float yaw) {
 // serves OpenRAC's gyro settings on the boom (which throws OpenRAC's own turn away), and the mod's
 // own gyro on older OpenRAC builds.
 //
-// The nodes are opened read-only: nothing is sent to a controller. OpenRAC's SDL turns a pad's
-// motion on while OpenRAC's gyro is on (a Switch pad's IMU, a DualShock 4's full reports over
-// Bluetooth); the Steam Deck, a DualSense and a pad on USB send it anyway. The one read beyond the
-// reports is a PlayStation pad's calibration (a feature report SDL reads too), once, at open.
+// The nodes are opened read-only: no command is sent to a controller. Linux's own drivers turn the
+// motion of Sony's and Nintendo's pads on when they connect (hid-playstation reads a DualShock 4's
+// calibration, which brings its full reports over Bluetooth; hid-nintendo turns a Switch pad's IMU
+// on); the Steam Deck sends it anyway. Third-party Switch pads get theirs only from OpenRAC's SDL,
+// while OpenRAC's gyro is on. The one request beyond the reports is a PlayStation pad's calibration
+// (a feature report SDL and hid-playstation read too), once, at open.
 
 class GyroDevice {
 public:

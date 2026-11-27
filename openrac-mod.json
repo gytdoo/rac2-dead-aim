@@ -502,7 +502,7 @@
       "type": "bool",
       "default": false,
       "section": "Gyro (older OpenRAC)",
-      "description": "Turn the camera by moving the controller, through OpenRAC's own gyro filter: a DualSense, DualShock 4, Switch Pro Controller, Joy-Con or Steam Deck, on Linux (a Switch pad and a DualShock 4 over Bluetooth send motion only once OpenRAC turns it on, which these builds do not). Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+      "description": "Turn the camera by moving the controller, through OpenRAC's own gyro filter: a DualSense, DualShock 4, Switch Pro Controller, Joy-Con or Steam Deck, on Linux (third-party Switch pads send no motion on these builds). Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
     },
     {
       "key": "gyro_speed",
