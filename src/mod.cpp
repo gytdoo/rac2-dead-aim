@@ -2285,6 +2285,11 @@ void ask_tilt(const openrac::Memory& memory, gaddr state, float t) {
 // only by the springs from one to the other, so it stays), the eyes, with the springs stopped, the
 // game's shortfall and sweep told to leave the length be, and its tilt made the lift's.
 constexpr gaddr kStateAnchor = 0xC0, kStateDistance = 0x18C, kStateHeight = 0x190;
+// The boom's hang point over the game's smoothed point: Up Your Arsenal's eye height (docs/notes/
+// rac3-strafe-camera.md: eyeH 2.0). The game hangs its view from that point by its own height (the
+// height spring, +0x28, eased toward +0x190), which a level may set otherwise: 4 on the Jamming
+// Array's planetoids, where the game tips its view down to him. So the boom holds both at its own.
+constexpr float kHangHeight = 2.0f;
 constexpr gaddr kStateEyeSprings[3] = {0x180, 0x184, 0x188};
 constexpr gaddr kStateShortfall = 0x220, kStateShortTimer = 0x224, kStateShortLock = 0x22A;
 constexpr gaddr kStateNoSweep = 0x23E;
@@ -2677,7 +2682,7 @@ void boom_tick(const openrac::Mod& mod, const openrac::Memory& memory, gaddr cam
     float distance = memory.read<float>(state + kStateDistance);
     if (!(distance > 0.5f && distance < 50.0f)) distance = std::fmax(s.boom_length, 1.0f);
     distance *= s.aim_zoom;
-    const float height = memory.read<float>(state + kStateHeight);
+    const float height = kHangHeight;
     const V3 pivot = read_v3(memory, state + kStatePivot);
     // The eye hangs from the anchor (+0xC0, up by the height), put only as far up from his chest as
     // there is room under a ceiling or a branch, eased back out (all or nothing, it flicked between
@@ -2842,6 +2847,9 @@ void boom_tick(const openrac::Mod& mod, const openrac::Memory& memory, gaddr cam
         fade_hero(mod, memory, kFadeAlpha + static_cast<int>(std::lround(t * (0x80 - kFadeAlpha))));
     }
     const V3 v{dir.x * s.boom_length, dir.y * s.boom_length, dir.z * s.boom_length};
+    memory.write<float>(state + kStateHeight, kHangHeight);
+    memory.write<float>(state + kStateHeightNow, kHangHeight);
+    memory.write<float>(state + kStateHeightVel, 0.0f);
     align_view(memory, state, fr.u, anchor, height);
     write_v3(memory, state + kStateOrbits[0], v);
     write_v3(memory, state + kStateOrbits[1], v);
@@ -3685,7 +3693,7 @@ constexpr gaddr kHeroFirstPersonEye = kHero + 0x151C;    // f32: the eye's heigh
 constexpr gaddr kHeroGunAway = kHero + 0x14F8;
 constexpr gaddr kHeroAimMode = kHero + 0x1500;  // s32: the aim some weapons take instead of state 29
 
-constexpr float kAimZoom = 0.8f;  // Aim held on a planetoid: the boom this much of its length
+constexpr float kAimZoom = 0.5f;  // Aim held on a planetoid: the boom this much of its length
 
 // The first-person view set to look where the camera looks, no steeper than kSteepestView (true
 // when it was).
