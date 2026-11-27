@@ -3,7 +3,8 @@
 ## Unreleased
 
 - Crouch Behavior: Crouch + Square on the run with a weapon out swaps to the wrench and throws it
-  without stopping (it stopped him in the game's crouch).
+  without stopping (it stopped him in the game's crouch). Fire then brings your weapon back, as
+  after the game's own Square.
 
 ## 0.1.2
 

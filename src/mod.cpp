@@ -1721,6 +1721,8 @@ struct Toss {
     bool square_was = true;    // Square last report (a press is its going down)
     bool square_eaten = false; // the press the toss took, kept from the game until let go
     int swap = 0;              // ticks since the wrench was asked for, to toss once in hand (0 none)
+    std::int32_t weapon = 0;   // the menu's choice before that ask, put back once the wrench is in hand
+    int weapon_ticks = 0;      // and how long it has waited for it
 };
 Toss g_toss;
 
@@ -1816,6 +1818,17 @@ void crouch_pad(const openrac::Mod& mod, const openrac::Memory& memory, std::uin
     const bool crouch = down(strafe::kR1), square = down(strafe::kSquare);
     const bool press = square && !g_toss.square_was;
     g_toss.square_was = square;
+    // Asking for the wrench makes it the menu's choice too, the item Fire brings back after the
+    // wrench: the weapon put back as the game's own Square leaves it, once the wrench is in hand.
+    if (g_toss.weapon != 0) {
+        const std::int32_t item = memory.read<std::int32_t>(kHeroItem);
+        if (item == kWrenchItem) {
+            if (memory.read<std::int32_t>(kMenuChoice) == kWrenchItem) memory.write<std::int32_t>(kMenuChoice, g_toss.weapon);
+            g_toss.weapon = 0;
+        } else if ((item != 0 && item != g_toss.weapon) || ++g_toss.weapon_ticks > 2 * kSwapTicks) {
+            g_toss.weapon = 0;  // something else chosen meanwhile, or the wrench never came
+        }
+    }
     if (!deadlocked) {
         s.run_crouch.reset();
         g_toss.aim = g_toss.square_eaten = false;
@@ -1836,6 +1849,9 @@ void crouch_pad(const openrac::Mod& mod, const openrac::Memory& memory, std::uin
                    && memory.read<std::int32_t>(kHeroRequest) == 0) {
             // Another item in hand: the wrench asked for (the game swaps it in as he runs, Crouch
             // still held back), and tossed as soon as it is ready.
+            const std::int32_t choice = memory.read<std::int32_t>(kMenuChoice);
+            g_toss.weapon = choice != kWrenchItem ? choice : 0;
+            g_toss.weapon_ticks = 0;
             memory.write<std::int32_t>(kHeroRequest, kWrenchItem);
             g_toss.swap = 1;
             g_toss.square_eaten = used = true;
