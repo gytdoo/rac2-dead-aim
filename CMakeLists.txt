@@ -28,6 +28,11 @@ endif()
 find_package(OpenRACMod 1.20 REQUIRED)
 
 openrac_add_mod(rac2_dead_aim MANIFEST openrac-mod.json SOURCES src/mod.cpp)
+# The NDK builds with debug info in every configuration: the Android library stripped (about 13
+# times smaller).
+if(ANDROID)
+  target_link_options(rac2_dead_aim PRIVATE -s)
+endif()
 
 # The controller logic and the gyro filter on their own, without the game.
 enable_testing()

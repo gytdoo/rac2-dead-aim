@@ -3,3 +3,4 @@
 /.sdk/
 __pycache__/
 .DS_Store
+/build-android/

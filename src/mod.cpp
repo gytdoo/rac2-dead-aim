@@ -36,7 +36,16 @@
 #include <string>
 #include <vector>
 
-#if defined(__linux__)
+// The controller gyro reader (GyroDevice) works through Linux's raw HID devices: desktop Linux only
+// (Android keeps apps from them). Elsewhere a build has no gyro of its own: OpenRAC's turns the
+// game's cameras, and the Modern camera takes the stick and the mouse.
+#if defined(__linux__) && !defined(__ANDROID__)
+#define DEAD_AIM_GYRO_READER 1
+#else
+#define DEAD_AIM_GYRO_READER 0
+#endif
+
+#if DEAD_AIM_GYRO_READER
 #include <cerrno>
 #include <cstring>
 #include <dirent.h>
@@ -2020,7 +2029,7 @@ public:
     // it). False while no controller sends motion.
     bool poll(openrac::Mod& mod, const gyro::GyroOptions& options, float& yaw, float& pitch) {
         yaw = pitch = 0.0f;
-#if defined(__linux__)
+#if DEAD_AIM_GYRO_READER
         const auto now = std::chrono::steady_clock::now();
         if (now - last_scan_ >= std::chrono::seconds(2)) {
             last_scan_ = now;
@@ -2080,7 +2089,7 @@ public:
 
     // For the menu (older OpenRAC): the controller in use, and its rest learnt.
     const char* name() const {
-#if defined(__linux__)
+#if DEAD_AIM_GYRO_READER
         return active_ >= 0 ? nodes_[static_cast<std::size_t>(active_)].device->name : nullptr;
 #else
         return nullptr;
@@ -2090,14 +2099,14 @@ public:
 
     // Every node let go (no gyro wanted); the next poll looks for them again.
     void close() {
-#if defined(__linux__)
+#if DEAD_AIM_GYRO_READER
         while (!nodes_.empty()) drop(nodes_.size() - 1);
         last_scan_ = {};
 #endif
     }
 
 private:
-#if defined(__linux__)
+#if DEAD_AIM_GYRO_READER
     struct Node {
         std::string name;  // hidrawN
         int fd = -1;
@@ -5228,7 +5237,9 @@ void diagram_gyro(const Pen& p, float x, float y, float w, float h, int cursor) 
 }
 
 std::vector<Tab> own_tabs() {
-    return {{"Mouse", mouse_rows, diagram_mouse, true}, {"Gyro", gyro_rows, diagram_gyro, true}};
+    std::vector<Tab> tabs{{"Mouse", mouse_rows, diagram_mouse, true}};
+    if (DEAD_AIM_GYRO_READER) tabs.push_back({"Gyro", gyro_rows, diagram_gyro, true});  // no reader, no tab
+    return tabs;
 }
 
 // ---------------------------------------------------------------------------------------------
