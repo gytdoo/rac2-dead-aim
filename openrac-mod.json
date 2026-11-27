@@ -18,7 +18,9 @@
   "multiplayer": "input",
   "conflicts": [
     { "id": "rac2-contextual-wrench", "reason": "both change what the shoulder buttons and Fire do" },
-    { "id": "shoulder-camera", "reason": "both move the follow camera and hold L2" }
+    { "id": "shoulder-camera", "reason": "both move the follow camera and hold L2" },
+    { "id": "steam-deck-pack", "reason": "both turn the camera from Steam Input's gyro and trackpad" },
+    { "id": "rac-board", "reason": "the board rides on the shoulder buttons Dead Aim remaps, and both move the camera" }
   ],
   "settings": [
     {

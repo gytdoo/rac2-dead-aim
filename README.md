@@ -129,9 +129,10 @@ releases can't load it. Built for Linux, Windows, macOS and Android; tested on L
 gets.
 
 > [!IMPORTANT]
-> Dead Aim can't run alongside **Contextual Wrench and Fire** or **Shoulder Camera**; the launcher
-> warns about both. With Joebannerlord's **Auto Gadgets** installed, Dead Aim's own Auto Gadgets turns
-> itself off. Every other Going Commando mod works alongside it.
+> Dead Aim can't run alongside **Contextual Wrench and Fire**, **Steam Deck Pack**, **RAC-Board** or
+> **Shoulder Camera**: the launcher marks the pair, and the game won't load them together. With
+> Joebannerlord's **Auto Gadgets** installed, Dead Aim's own Auto Gadgets turns itself off. Every
+> other Going Commando mod works alongside it.
 
 ## Status
 

@@ -35,5 +35,7 @@ The first pre-release, for testing.
 - Classic camera: the mod leaves every camera to the game, and hides the camera settings.
 - A menu page in the game's style (Pause > Options > Dead Aim), with text pages on older
   OpenRAC builds.
+- Other mods: Joebannerlord's Auto Gadgets takes over from Dead Aim's own; Contextual Wrench and
+  Fire, Steam Deck Pack, RAC-Board and Shoulder Camera are declared conflicts.
 - Built for Linux (x86_64 and arm64), Windows, macOS and Android. The gyro reader is Linux-only, and
   only Linux has been tested.

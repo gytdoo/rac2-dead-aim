@@ -81,13 +81,19 @@ own driver reads too. Read access to the controller's device is needed; Steam's 
 | Mod | With Dead Aim |
 |---|---|
 | Auto Gadgets (Joebannerlord) | Works. Dead Aim's own Auto Gadgets turns itself off, so his handles the gadgets. |
-| Contextual Wrench and Fire (Joebannerlord) | Conflict: both change the shoulder buttons and Fire. The launcher warns. |
-| Shoulder Camera (OpenRAC) | Conflict: both move the camera and hold L2. The launcher warns. |
+| Contextual Wrench and Fire (Joebannerlord) | Conflict: both change the shoulder buttons and Fire. |
+| Steam Deck Pack (Moritz Wallinger) | Conflict: both turn the camera from Steam Input's gyro and trackpad. Dead Aim reads the Steam Deck's gyro itself. |
+| RAC-Board (Mateusz Kłysz) | Conflict: the board rides on the shoulder buttons, which Dead Aim remaps, and both move the camera. |
+| Shoulder Camera (OpenRAC, not listed yet) | Conflict: both move the camera and hold L2. |
 | Any other Going Commando mod | Works. None of the others change the controls or the camera. |
 
-Checked against every Going Commando mod in OpenRAC's mod index: Ammo Max, Boldan Nanotech,
-Difficulty, HD Achievements, Item Randomizer, Megaturret Fix, Multiplayer, New Game++, Platinum
-Weapons, Seeker Fix, Showroom Star Explorer, Wrench Swap and Xbox Icons.
+A conflict shows on the mod's row in the launcher ("Conflicts with"), and the game won't load the
+two together: turn one of them off.
+
+Checked on 27 November 2026 against every Going Commando mod in OpenRAC's mod index: Accessibility
+Pack, Ammo Max, Boldan Nanotech, Cutscene Manager, Difficulty, HD Achievements, Item Randomizer,
+Megaturret Fix, Multiplayer, New Game++, Platinum Weapons, Seeker Fix, Showroom Star Explorer,
+Stadia button icons, Wrench Swap and Xbox Icons.
 
 ## Multiplayer
 
@@ -97,5 +103,6 @@ layout and camera settings. Party play has not been tested yet.
 ## Reporting a problem
 
 [Open an issue](https://github.com/gytdoo/rac2-dead-aim/issues) with your OpenRAC version, the disc
-(v1.01 or v2.00), the controller, and the settings you changed. The game log helps too:
-`~/OpenRAC/active/rac2/data/openrac-rac2-ntsc.log` (or `-ntsc2.log` for v2.00).
+(v1.01 or v2.00), your system, the controller, and the settings you changed. The game log helps
+too: `openrac-rac2-ntsc.log` (or `-ntsc2.log` for v2.00) in the game's data folder, which on Linux
+is `~/OpenRAC/active/rac2/data/`.

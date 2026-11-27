@@ -29,6 +29,7 @@
 #include <cstddef>
 #include <cstdio>
 #include <cstdint>
+#include <initializer_list>
 #include <cstdlib>
 #include <functional>
 #include <iterator>

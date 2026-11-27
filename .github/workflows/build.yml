@@ -4,8 +4,8 @@
 # both: native mods are built from the top CMakeLists.txt, which makes every one of them; script
 # mods ("type": "script", docs/port/MODS.md section 11) are packaged as they are, with no build.
 #
-# Each push and pull request: the mod built and tested on every platform OpenRAC runs on, against
-# the SDK sdk.lock pins (tools/fetch_sdk.py), each platform's build
+# Each push and pull request: every native mod built and tested on Windows, Linux and macOS, and
+# built for Android, against the SDK sdk.lock pins (tools/fetch_sdk.py), each platform's build
 # packaged as <id>-<version>-<platform>.zip and the platforms joined into <id>-<version>.zip; every
 # script mod packaged as <id>-<version>.zip; and SHA256SUMS over them all: the run's artifacts. A tag
 # v<version> (or <id>-v<version>) also publishes them on that release, which is what OpenRAC's
