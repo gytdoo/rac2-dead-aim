@@ -1,10 +1,14 @@
 # Changelog
 
-## Unreleased
+## 0.1.3
 
 - Crouch Behavior: Crouch + Square on the run with a weapon out swaps to the wrench and throws it
   without stopping (it stopped him in the game's crouch). Fire then brings your weapon back, as
   after the game's own Square.
+- The Hypnomatic's robot: on Yeedil's Receiver Bots, Fire shoots (it fired the Hypnomatic's beam,
+  which stays on the Wrench button).
+- The menu's crosshair preview stays round in widescreen (it stretched with the picture; the game's
+  own crosshair was round all along).
 
 ## 0.1.2
 

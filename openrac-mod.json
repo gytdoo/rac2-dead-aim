@@ -2,7 +2,7 @@
   "format": 2,
   "id": "rac2-dead-aim",
   "name": "Dead Aim",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "gytdoo",
   "description": "Deadlocked-style controls and camera for Going Commando: lock-strafe, remappable shoulder buttons, a free camera for the stick, mouse and gyro, aiming on the move, each weapon's own crosshair, aim assist and Auto Gadgets. Settings: Pause > Options > Dead Aim.",
   "license": "GPL-3.0-or-later",

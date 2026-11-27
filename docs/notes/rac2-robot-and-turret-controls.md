@@ -64,7 +64,7 @@ Robot decider cases are the same in all three levels:
 | action | game button | where / condition | conf. |
 |---|---|---|---|
 | **Jump** | **Cross**, pressed within 8 ticks | 0x8D idle (:2416) and 0x8E walk (:2554) go to **0x92**. In 0x92, Cross within 4 ticks re-jumps on landing (:2497) | H |
-| **Attack / shoot** | **Square**, pressed within 9 ticks | 0x8D (:2420) and 0x8E (:2558) go to **0x93**, **except the Receiver Bot (0xEE1), which has no attack**. 0x93 runs `shooter_update_ranged_attack` on the robot (`L20_002CD928.c:3102-3117`). For 0xEC0: each new Square press resets the attack timer vars+0x392, so tapping keeps it firing; at 0 it returns to 0x8D (`levels/shared/L18_00427BE0-burst-g8.c:30-49`). Controlled shots fly along the robot's facing, with no height aim (`L18_00427BE0-shot-g8.c:51-69`) | H (button), M (what fires) |
+| **Attack / shoot** | **Square**, pressed within 9 ticks | 0x8D (:2420) and 0x8E (:2558) go to **0x93**, **except, by the decompiled check, the Receiver Bot (0xEE1)**. In play the Receiver Bot shoots with Square all the same (Yeedil, v1.01: Square held as the robot fires its orange shots; Circle held grows the beam), so the check is read wrong or the shot comes from another path. Seen in game, H. 0x93 runs `shooter_update_ranged_attack` on the robot (`L20_002CD928.c:3102-3117`). For 0xEC0: each new Square press resets the attack timer vars+0x392, so tapping keeps it firing; at 0 it returns to 0x8D (`levels/shared/L18_00427BE0-burst-g8.c:30-49`). Controlled shots fly along the robot's facing, with no height aim (`L18_00427BE0-shot-g8.c:51-69`) | H (button), M (what fires) |
 | **Look / aim ("view")** | **L1 held**, **only from idle 0x8D** | Also needs +0x1500 == 0 and `level_get_saved_value()` == 0 (:2408). This is Ratchet's look state **1** (camera request 4; state entry `L20_002D7730-state-g8.c:335-341`). The Hypnomatic's update turns 1 into **29** (camera request 0x51; `levels/shared/L00_003B3158-lock-g8.c:203`, entry `L20_002D7730-state-g8.c:1201`). The robot stands still. **0x8E (walk) has no L1 test.** Release L1 → state 0, whose entry sends any form != 0 back to 0x8D (`decider.c:584-586, 2590-2593`; `state-g8.c:211`; `L20_002D6488.c:15-30`) | H |
 | **Strafe** | **L2 or R2 held** (flag +0x1454) | In 0x8E the robot uses `hero_update_turn_from_anim` (`L20_002CD928.c:3144-3146`). It **faces the camera yaw and moves along the stick**, as Ratchet does (`levels/shared/L00_002B35A0.c:9-40`; push direction +0x1440, `L20_002CD928.c:3186-3190`) | H |
 | Circle (Fire) | **Hypnomatic beam** from the robot, when the Hypnomatic is the equipped item | The item's button is slot0 mask = **0x20 (Circle)**; the wrench uses 0x80 (`levels/shared/L00_002AFBC0.c:238-244`). target_lock_on_update has form-4 branches: beam origin at robot joint 5 (:124-127), the equip delay is waived (:205), and Circle held grows the beam (`L00_003B84F0-g8.c:176, 207-215`). The beam can hypnotise the next robot (see 1a) | H (code), M (that it runs in form 4) |
@@ -120,9 +120,9 @@ State entry is in `L20_002D7730-state-g8.c` (all robot states request camera +0x
    - Aim → L1 (as now).
    - **Crouch shoulder → the strafe toggle**. R1 is dead for the robot, so nothing is lost.
    - Lock strafe holds **L2**; R2 works the same.
-   - **Fire**: the robot's gun is **Square** (class 0xEC0); its Circle is the Hypnomatic beam. Suggested: Fire →
-     Square when the class is 0xEC0, Fire → Circle when it is 0xEE1. The Wrench action → Circle for 0xEC0, so the beam
-     stays reachable. M (design choice)
+   - **Fire**: the robot's gun is **Square** for every class (the Receiver Bot's too, seen in play); its Circle is
+     the Hypnomatic beam. So Fire → Square and the Wrench action → Circle, so the beam stays reachable. (Fire →
+     Circle for the Receiver Bot, from the decompiled check, put the beam on Fire; changed in 0.1.3.)
 3. **Lock strafe blocks the L1 view after the robot has walked** (H).
    - 0x8E returns to idle 0x8D only when the stick is < 0.17 **and +0x1454 == 0** (`decider.c:2566-2568`).
    - Only 0x8D tests L1.

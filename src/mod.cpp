@@ -127,10 +127,9 @@ constexpr gaddr kMobyClass = 0xAA;  // s16 of a moby
 constexpr gaddr kMobyVars = 0x68;   // u32 of a moby: its own vars
 constexpr int kClankClass = 87;     // the hero's moby while the player is Clank
 // The Hypnomatic's robot (form 4; docs/notes/rac2-robot-and-turret-controls.md): its body is the hero
-// moby; the attack robot (Damosel, Grelbin) fires with Square, the Receiver Bot has no attack and
-// its Circle is the Hypnomatic's beam.
+// moby; every robot fires its gun with Square (the Receiver Bot too, in play) and its Circle is the
+// Hypnomatic's beam.
 constexpr std::uint8_t kRobotForm = 4;
-constexpr std::int16_t kAttackRobotClass = 0xEC0;
 
 // The groups of the hero's states (hero +0x229C; docs/notes/rac2-special-situations.md). On foot:
 // standing, moving, jumping, crouching, landing; the player's buttons are the mod's.
@@ -1903,17 +1902,15 @@ void on_pad(int port, std::uint8_t* report, int size) {
     config.lock_strafe = s.lock == Lock::Always
         || (s.lock == Lock::Weapon && gate != strafe::Gate::Off
             && is_weapon(g_auto.phase != AutoPhase::Idle && g_auto.previous != 0 ? g_auto.previous : item));
-    // The Hypnomatic's robot: the player's layout on its buttons. Fire is its attack (Square) or,
-    // for the Receiver Bot (none), its beam (Circle); Wrench is the beam; the face buttons swapped so
+    // The Hypnomatic's robot: the player's layout on its buttons. Fire is its gun (Square; the
+    // Receiver Bot's too, as played); Wrench is the beam (Circle); the face buttons swapped so
     // Circle shoots and Square beams, as Ratchet's fire and wrench sit. Crouch (it has none) toggles
     // the strafe, held for it as for Ratchet with a weapon; Aim lets the strafe go (it looks only
     // standing still).
     const std::uint8_t form = memory.read<std::uint8_t>(kHeroForm);
     if (form == kRobotForm) {
-        const gaddr body = memory.read<gaddr>(kHeroMoby);
-        const bool attacks = in_ram(body) && memory.read<std::int16_t>(body + kMobyClass) == kAttackRobotClass;
         config.lock_strafe = s.lock != Lock::Off && gate != strafe::Gate::Off;
-        config.fire_button = attacks ? strafe::kSquare : strafe::kCircle;
+        config.fire_button = strafe::kSquare;
         config.wrench_button = strafe::kCircle;
         config.swap_circle_square = true;
         config.crouch_toggles = true;
@@ -4860,12 +4857,13 @@ void diagram_camera(const Pen& p, float x, float y, float w, float h, int /*curs
         for (int i = 0; i < 4; ++i) p.text(tx, y + 36 + i * 14, 10, kDim, lines[i]);
         return;
     }
-    // The crosshair at its size, as the game draws it (40 units by its scale, stretched as the
-    // picture is), in a frame like a little screen.
+    // The crosshair at its size, as the game draws it (40 units by its scale, round on any screen:
+    // the game keeps its reticles round in widescreen), in a frame like a little screen.
     const float bx = x + 24, bw = 150, by = y + 8, bh = h - 26;
     p.rect(bx, by, bw, bh, kGlassDeep);
     p.edge(bx, by, bw, bh, 1.0f, kEdgeDim);
     const float ccx = bx + bw / 2, ccy = by + bh / 2, k = 40.0f / 64.0f * reticle_base(38, 1.0f) * s.crosshair_size;
+    const float kx = k * p.ax;  // across: the menu's units for a true unit
     const struct { float r0, r1; std::uint32_t c; } bands[] = {{18.5f, 21.5f, 0x0FFF0FC0u}, {24.75f, 26.25f, 0x0FFF0F70u}};
     for (const auto& band : bands) {
         if (!crosshair_shown()) break;  // Off: none to show
@@ -4874,19 +4872,19 @@ void diagram_camera(const Pen& p, float x, float y, float w, float h, int /*curs
             if (o2 <= 0) continue;
             const float xo = std::sqrt(o2), i2 = band.r0 * band.r0 - yc * yc;
             if (i2 <= 0) {
-                p.rect(ccx - xo * k, ccy + yy * k, 2 * xo * k, 0.5f * k, band.c);
+                p.rect(ccx - xo * kx, ccy + yy * k, 2 * xo * kx, 0.5f * k, band.c);
             } else {
                 const float xi = std::sqrt(i2);
-                p.rect(ccx - xo * k, ccy + yy * k, (xo - xi) * k, 0.5f * k, band.c);
-                p.rect(ccx + xi * k, ccy + yy * k, (xo - xi) * k, 0.5f * k, band.c);
+                p.rect(ccx - xo * kx, ccy + yy * k, (xo - xi) * kx, 0.5f * k, band.c);
+                p.rect(ccx + xi * kx, ccy + yy * k, (xo - xi) * kx, 0.5f * k, band.c);
             }
         }
     }
     for (int side = -1; side <= 1 && crosshair_shown(); side += 2) {
         for (float off : {-3.0f, 1.0f}) {
             const float x0 = side < 0 ? -32.0f : 26.25f;
-            p.rect(ccx + x0 * k, ccy + off * k, 5.75f * k, 2.0f * k, 0x0FFF0FC0u);
-            p.rect(ccx + off * k, ccy + x0 * k, 2.0f * k, 5.75f * k, 0x0FFF0FC0u);
+            p.rect(ccx + x0 * kx, ccy + off * k, 5.75f * kx, 2.0f * k, 0x0FFF0FC0u);
+            p.rect(ccx + off * kx, ccy + x0 * k, 2.0f * kx, 5.75f * k, 0x0FFF0FC0u);
         }
     }
     if (!crosshair_shown()) p.text_centred(ccx, ccy - 5, 10, kDim, "OFF");
@@ -5491,4 +5489,4 @@ void load(openrac::Mod& mod) {
 
 }  // namespace
 
-OPENRAC_MOD_CPP("rac2-dead-aim", "0.1.2", load)
+OPENRAC_MOD_CPP("rac2-dead-aim", "0.1.3", load)
