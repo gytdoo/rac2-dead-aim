@@ -137,13 +137,12 @@ gets.
 ## Status
 
 Tested by hand on Linux, on the 1.1.0 release and development builds: the camera, aiming,
-crosshairs, menus, Auto Gadgets, grinding, cranks, swimming, the Glider, the Levitator, Giant Clank,
-the mouse and the DualSense gyro. Automated runs cover a pass through every level, the planetoids, turrets, the
-Hypnomatic's robot and Crouch Behavior.
+crosshairs, menus, Auto Gadgets, grinding, cranks, swimming, the Glider, the Levitator, the Charge
+Boots with Deadlocked crouch, Giant Clank, the mouse and the DualSense gyro. Automated runs cover a
+pass through every level, the planetoids, turrets, the Hypnomatic's robot and Crouch Behavior.
 
-Not yet verified: the Charge Boots with Deadlocked crouch, the wrench toss and Auto Gadgets on
-v2.00, gyro on controllers other than the DualSense, the mod's own mouse, multiplayer parties, and
-Windows, macOS and Android.
+Not yet verified: the wrench toss and Auto Gadgets on v2.00, gyro on controllers other than the
+DualSense, the mod's own mouse, multiplayer parties, and Windows, macOS and Android.
 [Reports are welcome.](https://github.com/gytdoo/rac2-dead-aim/issues)
 
 > [!NOTE]
