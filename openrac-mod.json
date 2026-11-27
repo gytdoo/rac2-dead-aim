@@ -393,7 +393,7 @@
           "name": "Nothing"
         }
       ],
-      "description": "What the left mouse button does as Ratchet. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
+      "description": "What the left mouse button does as Ratchet. Older OpenRAC builds only, not on Android; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "mouse_right",
@@ -431,7 +431,7 @@
           "name": "Nothing"
         }
       ],
-      "description": "What the right mouse button does as Ratchet. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
+      "description": "What the right mouse button does as Ratchet. Older OpenRAC builds only, not on Android; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "mouse_middle",
@@ -469,7 +469,7 @@
           "name": "Nothing"
         }
       ],
-      "description": "What the middle mouse button does as Ratchet. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
+      "description": "What the middle mouse button does as Ratchet. Older OpenRAC builds only, not on Android; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "mouse_camera",
@@ -477,7 +477,7 @@
       "type": "bool",
       "default": true,
       "section": "Mouse (older OpenRAC)",
-      "description": "Turn the camera with the mouse. The cursor is held in the game's window while this is on or a mouse button does something. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
+      "description": "Turn the camera with the mouse. The cursor is held in the game's window while this is on or a mouse button does something. Older OpenRAC builds only, not on Android; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "mouse_speed",
@@ -488,7 +488,7 @@
       "max": 4.0,
       "step": 0.25,
       "section": "Mouse (older OpenRAC)",
-      "description": "How fast the mouse turns the camera. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
+      "description": "How fast the mouse turns the camera. Older OpenRAC builds only, not on Android; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "invert_y",
@@ -496,7 +496,7 @@
       "type": "bool",
       "default": false,
       "section": "Mouse (older OpenRAC)",
-      "description": "Reverse the vertical axis. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
+      "description": "Reverse the vertical axis. Older OpenRAC builds only, not on Android; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "gyro_camera",
@@ -504,7 +504,7 @@
       "type": "bool",
       "default": false,
       "section": "Gyro (older OpenRAC)",
-      "description": "Turn the camera by moving the controller, through OpenRAC's own gyro filter: a DualSense, DualShock 4, Switch Pro Controller, Joy-Con or Steam Deck, on Linux (third-party Switch pads send no motion on these builds). Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
+      "description": "Turn the camera by moving the controller, through OpenRAC's own gyro filter: a DualSense, DualShock 4, Switch Pro Controller, Joy-Con or Steam Deck, on Linux (third-party Switch pads send no motion on these builds). Older OpenRAC builds on Linux only; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "gyro_speed",
@@ -515,7 +515,7 @@
       "max": 4.0,
       "step": 0.25,
       "section": "Gyro (older OpenRAC)",
-      "description": "How far the camera turns for the controller's turn (1: as far; 2, OpenRAC's default: twice as far). Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
+      "description": "How far the camera turns for the controller's turn (1: as far; 2, OpenRAC's default: twice as far). Older OpenRAC builds on Linux only; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "gyro_turn",
@@ -541,7 +541,7 @@
           "name": "Local"
         }
       ],
-      "description": "Which of the controller's turns turn the camera, as OpenRAC's own gyro has it: Player, its turn about the way up however it is held; Yaw, its twist held flat; Roll, leaning it like a wheel; Local, both twist and lean. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
+      "description": "Which of the controller's turns turn the camera, as OpenRAC's own gyro has it: Player, its turn about the way up however it is held; Yaw, its twist held flat; Roll, leaning it like a wheel; Local, both twist and lean. Older OpenRAC builds on Linux only; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "gyro_invert_x",
@@ -549,7 +549,7 @@
       "type": "bool",
       "default": false,
       "section": "Gyro (older OpenRAC)",
-      "description": "Reverse the horizontal axis. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
+      "description": "Reverse the horizontal axis. Older OpenRAC builds on Linux only; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "gyro_invert_y",
@@ -557,7 +557,7 @@
       "type": "bool",
       "default": false,
       "section": "Gyro (older OpenRAC)",
-      "description": "Reverse the vertical axis. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
+      "description": "Reverse the vertical axis. Older OpenRAC builds on Linux only; newer ones use OpenRAC's own settings (` or Start + Select)."
     }
   ]
 }

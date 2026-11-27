@@ -46,6 +46,15 @@
 #define DEAD_AIM_GYRO_READER 0
 #endif
 
+// The mod's own mouse (older OpenRAC builds) is for a desktop's mouse. On Android, OpenRAC gives
+// screen touches as the mouse: capturing it would make every touch a click and take touches from
+// OpenRAC's touch buttons and camera, so there the mod leaves the mouse alone.
+#if defined(__ANDROID__)
+#define DEAD_AIM_OWN_MOUSE 0
+#else
+#define DEAD_AIM_OWN_MOUSE 1
+#endif
+
 #if DEAD_AIM_GYRO_READER
 #include <cerrno>
 #include <cstring>
@@ -4913,7 +4922,8 @@ void own_capture(const openrac::Mod& mod, bool playing) {
     const auto input = mod.input();
     bool buttons = false;
     for (const strafe::Action action : s.config.mouse) buttons = buttons || action != strafe::Action::None;
-    const bool want = !openrac_input() && (g_own.mouse_camera || buttons) && playing && input.focused() && !input.raw().overlay;
+    const bool want = DEAD_AIM_OWN_MOUSE && !openrac_input() && (g_own.mouse_camera || buttons) && playing && input.focused() &&
+                      !input.raw().overlay;
     if (want != g_own.captured) {
         mod.capture_mouse(want);
         g_own.captured = want;
@@ -4937,7 +4947,7 @@ gyro::GyroOptions own_gyro_options() {
 // bind them itself.
 std::uint32_t own_mouse_buttons(const openrac::Mod& mod) {
     const auto input = mod.input();
-    return !openrac_input() && input.raw().captured ? input.raw().mouse_held : 0;
+    return DEAD_AIM_OWN_MOUSE && !openrac_input() && input.raw().captured ? input.raw().mouse_held : 0;
 }
 
 // The mod's own mouse and gyro as another camera's right stick (own_game_camera), unless the
@@ -4958,7 +4968,7 @@ void own_pad_stick(std::uint8_t* report, int size) {
 // degrees for 100 pixels at 1x; right turns right, down looks down (Invert Y the other way).
 Look own_look(const openrac::Input& input, bool gyro_read, Look gyro) {
     Look look;
-    if (g_own.mouse_camera && input.raw().captured) {
+    if (DEAD_AIM_OWN_MOUSE && g_own.mouse_camera && input.raw().captured) {
         const float dx = input.mouse_dx(), dy = input.mouse_dy();
         look.yaw -= dx * g_own.mouse_speed * 9.0f * kDeg / 100.0f;
         look.pitch -= (g_own.invert_y ? -dy : dy) * g_own.mouse_speed * 9.0f * kDeg / 100.0f;
@@ -5238,7 +5248,8 @@ void diagram_gyro(const Pen& p, float x, float y, float w, float h, int cursor) 
 }
 
 std::vector<Tab> own_tabs() {
-    std::vector<Tab> tabs{{"Mouse", mouse_rows, diagram_mouse, true}};
+    std::vector<Tab> tabs;
+    if (DEAD_AIM_OWN_MOUSE) tabs.push_back({"Mouse", mouse_rows, diagram_mouse, true});   // not on Android
     if (DEAD_AIM_GYRO_READER) tabs.push_back({"Gyro", gyro_rows, diagram_gyro, true});  // no reader, no tab
     return tabs;
 }

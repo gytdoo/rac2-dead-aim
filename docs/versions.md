@@ -41,7 +41,9 @@ wrench toss have been checked less on v2.00.
 | Android arm64 (OpenRAC's app) | Yes | No | Not yet |
 
 - **Dead Aim's gyro** reads controllers through Linux's raw HID devices, so it is only in the
-  desktop Linux builds; the others have no Gyro tab. There, on development builds, OpenRAC's own gyro
+  desktop Linux builds; the others have no Gyro tab.
+- **On Android** OpenRAC gives screen touches as the mouse, so Dead Aim leaves the mouse to
+  OpenRAC's touch buttons and camera: no Mouse tab, and a touch is never a click. There, on development builds, OpenRAC's own gyro
   still turns the game's cameras (Classic, the Glider, vehicles), and Steam Input's "gyro as mouse"
   turns the Modern camera.
 - **OpenRAC's settings** changed mid-game reach Dead Aim at once on Linux. Elsewhere it uses them

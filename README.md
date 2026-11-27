@@ -104,6 +104,7 @@ the gadget already in hand, Fire does what the game's Circle does.
   Mouse and Gyro tabs. There, third-party Switch pads send no motion.
 - **Outside Linux** the mod can't read the controller's gyro, so there is no Gyro tab. On
   development builds OpenRAC's own gyro still turns the game's cameras.
+- **On Android** the mod leaves the mouse alone, as OpenRAC's touch controls use it: no Mouse tab.
 
 </details>
 
