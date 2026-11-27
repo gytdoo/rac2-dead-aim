@@ -1,8 +1,8 @@
 # Changelog
 
-## 1.0.0
+## 0.1.0
 
-The first release.
+The first pre-release, for testing.
 
 - Crouch Behavior: Deadlocked's (held on the run it never stops Ratchet, so Crouch + Jump long jumps
   from the run and Crouch + Square tosses the wrench as he runs), Joe Wrench (the toss in the air
@@ -35,3 +35,5 @@ The first release.
 - Classic camera: the mod leaves every camera to the game, and hides the camera settings.
 - A menu page in the game's style (Pause > Options > Dead Aim), with text pages on older
   OpenRAC builds.
+- Built for Linux (x86_64 and arm64), Windows, macOS and Android. The gyro reader is Linux-only, and
+  only Linux has been tested.

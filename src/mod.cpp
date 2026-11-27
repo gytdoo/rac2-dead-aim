@@ -205,7 +205,7 @@ constexpr const char* kStyleNames[] = {"Modern", "Classic"};
 
 // Camera Speed: the game's own (Options > Camera), or Deadlocked's speeds by name: its own range
 // (its option 0..64, x lerp(0.25, 1.25, option / 64); "Normal" its default, 50).
-// Vertical Sensitivity: up and down as a share of left and right, each game's (its stick's top
+// Vertical Sensitivity: the vertical speed as a share of the horizontal, each game's (its stick's top
 // tilt over its top turn: Deadlocked 2 over 3 degrees a tick, Up Your Arsenal 2 over 1.5), or the
 // player's own.
 constexpr const char* kVerticalValues[] = {"deadlocked", "uya", "custom"};
@@ -317,7 +317,7 @@ struct State {
     float stick_yaw_rate = 0, stick_pitch_rate = 0;  // radians a tick
     int camera_speed = 3;           // Camera Speed: one of Deadlocked's (kCameraSpeedScale), Normal by default
     int vertical = 0;             // Vertical Sensitivity: 0 Deadlocked's, 1 Up Your Arsenal's, 2 Custom
-    float vertical_custom = 0.7f; // Custom Sensitivity: up and down as a share of left and right
+    float vertical_custom = 0.7f; // Custom Sensitivity: the vertical speed as a share of the horizontal
     int quick_ticks = 0;            // ticks the stick has been held right over (Deadlocked's quick turn)
     int assist_style = 1;           // Aim Assist: 0 off, 1 Deadlocked's, 2 Up Your Arsenal's
     float assist = 0;               // its weight now (0..1): the stick slowed, the view drawn along
@@ -5401,4 +5401,4 @@ void load(openrac::Mod& mod) {
 
 }  // namespace
 
-OPENRAC_MOD_CPP("rac2-dead-aim", "1.0.0", load)
+OPENRAC_MOD_CPP("rac2-dead-aim", "0.1.0", load)

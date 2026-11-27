@@ -32,8 +32,20 @@ wrench toss have been checked less on v2.00.
 
 ## Platforms
 
-Linux x86_64 only. The gyro reads controllers through Linux's raw HID devices; Windows and macOS
-builds are not made.
+| Platform | Built | Dead Aim's gyro | Tested |
+|---|:---:|:---:|:---:|
+| Linux x86_64, Steam Deck | Yes | Yes | Yes |
+| Linux arm64 | Yes | Yes | Not yet |
+| Windows x86_64 | Yes | No | Not yet |
+| macOS (Apple silicon and Intel) | Yes | No | Not yet |
+| Android arm64 (OpenRAC's app) | Yes | No | Not yet |
+
+- **Dead Aim's gyro** reads controllers through Linux's raw HID devices, so it is only in the
+  desktop Linux builds; the others have no Gyro tab. There, on development builds, OpenRAC's own gyro
+  still turns the game's cameras (Classic, the Glider, vehicles), and Steam Input's "gyro as mouse"
+  turns the Modern camera.
+- **OpenRAC's settings** changed mid-game reach Dead Aim at once on Linux. Elsewhere it uses them
+  as they were when the game started.
 
 ## Controllers and gyro
 

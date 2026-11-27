@@ -2,9 +2,9 @@
   "format": 2,
   "id": "rac2-dead-aim",
   "name": "Dead Aim",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "author": "gytdoo",
-  "description": "Going Commando played the Deadlocked way: lock-strafe, remappable shoulder buttons, a free camera for stick, mouse and gyro that keeps out of walls, aiming on the move, each weapon's own crosshair, aim assist and Auto Gadgets. Pause > Options > Dead Aim.",
+  "description": "Deadlocked-style controls and camera for Going Commando: lock-strafe, remappable shoulder buttons, a free camera for the stick, mouse and gyro, aiming on the move, each weapon's own crosshair, aim assist and Auto Gadgets. Settings: Pause > Options > Dead Aim.",
   "license": "GPL-3.0-or-later",
   "homepage": "https://github.com/gytdoo/rac2-dead-aim",
   "api": "1.20",
@@ -27,7 +27,7 @@
       "type": "choice",
       "default": "weapon",
       "section": "Buttons",
-      "description": "Ratchet faces the camera while you move: never, with a weapon in hand, or always. A Toggle strafe button flips it while held.",
+      "description": "Keeps Ratchet's back to the camera: never, while a weapon is out, or always. A Toggle strafe button flips it while held.",
       "choices": [
         {
           "value": "off",
@@ -97,7 +97,7 @@
           "name": "Wrench"
         }
       ],
-      "description": "What L1 does on foot."
+      "description": "What L1 does as Ratchet."
     },
     {
       "key": "l2",
@@ -131,7 +131,7 @@
           "name": "Wrench"
         }
       ],
-      "description": "What L2 does on foot."
+      "description": "What L2 does as Ratchet."
     },
     {
       "key": "r1",
@@ -165,7 +165,7 @@
           "name": "Wrench"
         }
       ],
-      "description": "What R1 does on foot."
+      "description": "What R1 does as Ratchet."
     },
     {
       "key": "r2",
@@ -199,7 +199,7 @@
           "name": "Wrench"
         }
       ],
-      "description": "What R2 does on foot."
+      "description": "What R2 does as Ratchet."
     },
     {
       "key": "auto_gadgets",
@@ -268,7 +268,7 @@
       "max": 1.5,
       "step": 0.1,
       "section": "Camera",
-      "description": "Modern camera: the weapon's own crosshair in third person, where the gun aims with the camera, and the size of the centre crosshair in first and third person (target markers keep theirs). Off: no crosshair in third person; in first person the game's own reticles stay, at their own size, and the ones the mod adds on the move (the wrench's, the Swingshot's, the Hypnomatic's) go."
+      "description": "Modern camera: the size of the weapon's crosshair in third and first person (target markers keep theirs). Off: no crosshair in third person; first person keeps the game's own reticle."
     },
     {
       "key": "camera_speed",
@@ -276,7 +276,7 @@
       "type": "choice",
       "default": "normal",
       "section": "Camera",
-      "description": "How fast the right stick turns the Modern camera: one of Deadlocked's speeds, linear, with a quick turn when the stick is held right over. Classic uses the game's own (Options > Camera).",
+      "description": "How fast the right stick turns the Modern camera, at one of Deadlocked's speeds. Holding the stick fully sideways turns faster. Classic uses the game's own speed (Options > Camera).",
       "choices": [
         {
           "value": "slowest",
@@ -391,7 +391,7 @@
           "name": "Nothing"
         }
       ],
-      "description": "What the left mouse button does in play. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+      "description": "What the left mouse button does as Ratchet. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "mouse_right",
@@ -429,7 +429,7 @@
           "name": "Nothing"
         }
       ],
-      "description": "What the right mouse button does in play. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+      "description": "What the right mouse button does as Ratchet. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "mouse_middle",
@@ -467,7 +467,7 @@
           "name": "Nothing"
         }
       ],
-      "description": "What the middle mouse button does in play. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+      "description": "What the middle mouse button does as Ratchet. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "mouse_camera",
@@ -475,7 +475,7 @@
       "type": "bool",
       "default": true,
       "section": "Mouse (older OpenRAC)",
-      "description": "Turn the camera with the mouse. The cursor is held in the game's window while this is on or a mouse button does something. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+      "description": "Turn the camera with the mouse. The cursor is held in the game's window while this is on or a mouse button does something. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "mouse_speed",
@@ -486,7 +486,7 @@
       "max": 4.0,
       "step": 0.25,
       "section": "Mouse (older OpenRAC)",
-      "description": "How fast the mouse turns the camera. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+      "description": "How fast the mouse turns the camera. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "invert_y",
@@ -494,7 +494,7 @@
       "type": "bool",
       "default": false,
       "section": "Mouse (older OpenRAC)",
-      "description": "Push the mouse up to look down. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+      "description": "Reverse the vertical axis. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "gyro_camera",
@@ -502,7 +502,7 @@
       "type": "bool",
       "default": false,
       "section": "Gyro (older OpenRAC)",
-      "description": "Turn the camera by moving the controller, through OpenRAC's own gyro filter: a DualSense, DualShock 4, Switch Pro Controller, Joy-Con or Steam Deck, on Linux (third-party Switch pads send no motion on these builds). Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+      "description": "Turn the camera by moving the controller, through OpenRAC's own gyro filter: a DualSense, DualShock 4, Switch Pro Controller, Joy-Con or Steam Deck, on Linux (third-party Switch pads send no motion on these builds). Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "gyro_speed",
@@ -513,7 +513,7 @@
       "max": 4.0,
       "step": 0.25,
       "section": "Gyro (older OpenRAC)",
-      "description": "How far the camera turns for the controller's turn (1: as far; 2, OpenRAC's default: twice as far). Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+      "description": "How far the camera turns for the controller's turn (1: as far; 2, OpenRAC's default: twice as far). Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "gyro_turn",
@@ -539,7 +539,7 @@
           "name": "Local"
         }
       ],
-      "description": "Which of the controller's turns turn the camera, as OpenRAC's own gyro has it: Player, its turn about the way up however it is held; Yaw, its twist held flat; Roll, leaning it like a wheel; Local, both twist and lean. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+      "description": "Which of the controller's turns turn the camera, as OpenRAC's own gyro has it: Player, its turn about the way up however it is held; Yaw, its twist held flat; Roll, leaning it like a wheel; Local, both twist and lean. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "gyro_invert_x",
@@ -547,7 +547,7 @@
       "type": "bool",
       "default": false,
       "section": "Gyro (older OpenRAC)",
-      "description": "Turn the other way. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+      "description": "Reverse the horizontal axis. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
     },
     {
       "key": "gyro_invert_y",
@@ -555,7 +555,7 @@
       "type": "bool",
       "default": false,
       "section": "Gyro (older OpenRAC)",
-      "description": "Tilt the other way. Only on OpenRAC builds without their own keyboard, mouse and gyro support; on others, OpenRAC's own settings (` or Start + Select) are used instead."
+      "description": "Reverse the vertical axis. Older OpenRAC builds only; newer ones use OpenRAC's own settings (` or Start + Select)."
     }
   ]
 }
