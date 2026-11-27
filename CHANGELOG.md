@@ -2,40 +2,48 @@
 
 ## 0.1.0
 
-The first pre-release, for testing.
+The first pre-release, for testing. Every setting is in **Pause → Options → Dead Aim** and in the
+launcher.
 
-- Crouch Behavior: Deadlocked's (held on the run it never stops Ratchet, so Crouch + Jump long jumps
-  from the run and Crouch + Square tosses the wrench as he runs), Joe Wrench (the toss in the air
-  too), or the game's own.
-- Lock-strafe (with a weapon, always or off) and remappable L1, L2, R1 and R2 (Jump, Fire, Crouch,
-  Aim, Wrench, toggle strafe). Defaults: L1 Jump, L2 Aim, R1 Crouch, R2 Fire.
-- The Modern camera: free, for the stick, the mouse and the gyro, kept out of walls with an Up Your
-  Arsenal-style sphere sweep, and following the Jamming Array's planetoids.
-- Aiming where the camera looks in third person, and on the move in first person (Aim Control:
-  Free Movement), eased into from the camera.
-- Deadlocked's camera speeds with its quick turn, vertical sensitivity (Deadlocked's, Up Your
-  Arsenal's or your own), and aim assist (Deadlocked's or Up Your Arsenal's) for the right stick.
-  Played in first person (the game's option on), holding Aim switches to the third-person camera.
-- The game's own reticles for every weapon, the wrench, the Swingshot and the Hypnomatic, with one
-  Crosshair setting for their size (or Off).
-- The game's own controls kept in water, turrets, cranks, vendors, vehicles and as Clank, Giant
-  Clank or the Hypnomatic's robot. The camera steps aside wherever the game uses another camera.
-- In tight spaces the camera comes in close and Ratchet fades, instead of the camera pressing into
-  him.
-- Auto Gadgets (on by default): Fire at a target puts the Swingshot, the Dynamo, the Tractor
-  Beam, the Thermanator or the Hypnomatic in hand and uses it, then gives your weapon back.
-- Fire detonates a thrown Spiderbot or Visibomb.
-- Turrets fire on your Fire button and aim with the right stick, the mouse and the gyro.
-- The Hypnomatic's robot takes your Fire, Jump and Aim buttons and lock-strafe, with Crouch as its
-  strafe toggle.
-- OpenRAC's built-in mouse and gyro settings used where the build has them, the mod's own where it
-  has not (working the game's cameras as OpenRAC's does, within the game's limits).
-- The gyro read as OpenRAC reads it, through a port of OpenRAC's own gyro filter: the DualSense and
-  DualSense Edge, DualShock 4, Switch Pro Controller, Joy-Cons and Steam Deck.
-- Classic camera: the mod leaves every camera to the game, and hides the camera settings.
-- A menu page in the game's style (Pause > Options > Dead Aim), with text pages on older
-  OpenRAC builds.
-- Other mods: Joebannerlord's Auto Gadgets takes over from Dead Aim's own; Contextual Wrench and
-  Fire, Steam Deck Pack, RAC-Board and Shoulder Camera are declared conflicts.
-- Built for Linux (x86_64 and arm64), Windows, macOS and Android. The gyro reader is Linux-only, and
-  only Linux has been tested.
+### Controls
+
+- Lock-strafe: Ratchet keeps his back to the camera while a weapon is out, always, or never.
+- L1, L2, R1 and R2 can each be Jump, Fire, Crouch, Aim, Wrench or Toggle strafe. Defaults: L1 Jump,
+  L2 Aim, R1 Crouch, R2 Fire.
+- Crouch Behavior: **Deadlocked** (holding Crouch doesn't stop a run, so Crouch + Jump long jumps
+  and Crouch + Square throws the wrench while running), **Joe Wrench** (the throw in the air too),
+  or **Standard** (the game's crouch).
+- Auto Gadgets: Fire at a gadget's target uses the Swingshot, Dynamo, Tractor Beam, Thermanator or
+  Hypnomatic, then switches back to your weapon.
+- Fire also shoots turrets and detonates a thrown Spiderbot or Visibomb, and the Hypnomatic's robot
+  uses your layout.
+- The game's own controls stay in water, at cranks and vendors, in vehicles, and as Clank or Giant
+  Clank.
+
+### Camera and aiming
+
+- Modern camera: a free camera for the stick, mouse and gyro, kept out of walls with a swept sphere
+  as in Up Your Arsenal, and working on the Jamming Array's planetoids. **Classic** leaves every
+  camera to the game.
+- Shots go where the crosshair points. Each weapon shows its own reticle, and Crosshair sets their
+  size.
+- Aim Control: **Free Movement** (hold Aim for first person and keep walking; with the game's
+  first-person option on, Aim switches to third person instead) or **Standard**.
+- Deadlocked's five stick speeds. Holding the stick fully sideways turns faster.
+- Vertical sensitivity: Deadlocked's, Up Your Arsenal's, or your own.
+- Aim assist with Deadlocked's or Up Your Arsenal's values. The mouse and gyro are not affected.
+- In tight spaces the camera moves in close and Ratchet fades out.
+
+### Mouse and gyro
+
+- Uses OpenRAC's own mouse and gyro settings where the build has them. On the 1.1.0 release, the
+  mod's own Mouse and Gyro tabs.
+- On Linux, the gyro works with the DualSense, DualShock 4, Switch Pro Controller, Joy-Cons and
+  Steam Deck, through a port of OpenRAC's own gyro filter.
+
+### Compatibility
+
+- OpenRAC 1.1.0 or a development build, with Going Commando USA v1.01 or v2.00.
+- Built for Linux, Windows, macOS and Android. Only Linux has been tested so far.
+- Joebannerlord's Auto Gadgets takes over from Dead Aim's own. Contextual Wrench and Fire, Steam
+  Deck Pack, RAC-Board and Shoulder Camera are declared conflicts.
