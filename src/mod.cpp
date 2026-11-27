@@ -1590,8 +1590,10 @@ void auto_frame() {
         auto_cancel(memory, "Ratchet back");
     }
     // The player chose an item of their own (the Quick Select, the wrench): theirs. The wrench the
-    // game puts in his hand after a capture is the game's.
-    const bool game_wrench = a.saw_robot && (item == kWrenchItem || request == kWrenchItem);
+    // game puts in his hand itself is the game's: after a capture, and while it forces it (a double
+    // jump or a ledge, +0x22B7; it puts the gadget back after).
+    const bool game_wrench = (item == kWrenchItem || request == kWrenchItem)
+        && (a.saw_robot || memory.read<std::uint8_t>(kHeroWrenchForced) != 0);
     if (!game_wrench && ((item != 0 && item != gitem && item != a.previous) || (request != 0 && request != gitem && request != a.previous))) {
         auto_hand_over(memory, "the player's own choice");
         return;
@@ -1914,8 +1916,9 @@ void on_pad(int port, std::uint8_t* report, int size) {
             || ((s.fp_active || s.tp_active || swinging) && gate == strafe::Gate::Busy));
     if (!done.aim) s.fp_refused = false;
     // In the game's first person (the player's own, or Free Movement's) its L1 and L2 fire: the mod
-    // never holds them there, lock-strafe included (the game strafes in first person itself).
-    if ((s.fp_want && !s.fp_refused) || s.fp_active || s.tp_active || first_person_on(mod, memory)) {
+    // never holds them there in play, lock-strafe included (the game strafes in first person itself).
+    if ((s.fp_want && !s.fp_refused) || s.fp_active || s.tp_active
+        || (gate != strafe::Gate::Off && first_person_on(mod, memory))) {
         if (size >= 2) report[strafe::kButtonsHigh] = static_cast<std::uint8_t>(report[strafe::kButtonsHigh] | strafe::kL1 | strafe::kL2);
         if (size >= strafe::kFullReport) report[strafe::kL2Pressure] = report[strafe::kL1Pressure] = 0;
     }
@@ -2951,15 +2954,20 @@ void first_person_tick(const openrac::Memory& memory, float yaw, float pitch) {
 // each tick the look is turned as his up turned, as the game turns its shots in flight
 // (part_steer_effect_direction): a level look stays level.
 // His own up under any custom gravity: the game's switch to it (within 8 degrees of straight up it
-// takes straight up) would turn the look by those degrees at once.
+// takes straight up) would turn the look by those degrees at once. Carried while the first-person
+// option is on (through a vendor or a lift too), the Modern camera only (Classic leaves the game's
+// views as they are). A turn of his up of more than kCarryMost in a tick (a respawn, a new level,
+// his gravity switched) is taken as it is, not as his walking round.
+constexpr float kCarryMost = 0.985f;  // the cosine of 10 degrees; walking a planetoid turns it ~0.5 a tick
 void first_person_carry(const openrac::Mod& mod, const openrac::Memory& memory) {
     const V3 up = memory.read<std::uint8_t>(kHeroGravityMode) != 0 ? hero_up(memory) : V3{0, 0, 1};
     const V3 was = s.fp_up;
     s.fp_up = up;
-    if (!(first_person_on(mod, memory) || aiming_now(mod, memory))) return;
+    const bool option = memory.read<std::int32_t>(boot_global(mod, kFirstPersonToggle)) != 0;
+    if (!s.modern || !(option || first_person_on(mod, memory) || aiming_now(mod, memory))) return;
     const V3 axis = vec::cross(was, up);
     const float sn = length(axis), c = vec::dot(was, up);
-    if (sn < 1e-6f) return;
+    if (sn < 1e-6f || c < kCarryMost) return;
     const V3 k = vec::mul(axis, 1.0f / sn);
     const V3 v = read_v3(memory, kHeroFirstPersonAim);
     write_v3(memory, kHeroFirstPersonAim,

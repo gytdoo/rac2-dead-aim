@@ -54,11 +54,13 @@ changes there. Offsets are from the hero block at 0x189E20 (the mod's `kHero`). 
 - **First person is the game's own, kept level:** each tick `first_person_carry` turns +0x14E0 by
   the turn his up made since the last tick (the same turn the game gives its shots). It uses
   hero+0x20 under any custom gravity, so crossing the game's 8-degree switch near the top does not
-  jolt it. The mod's own first-person turning (stick, mouse, gyro) and its hand-off into first
+  jolt it. It runs with the Modern camera while the first-person option is on (or he aims), and a
+  turn of more than 10 degrees in a tick (a respawn, a level, his gravity switched) is taken as it
+  is; walking round a planetoid turns his up about half a degree a tick. The mod's own first-person turning (stick, mouse, gyro) and its hand-off into first
   person (`view_from_camera`) work about the same up the game uses.
 - **Shots go at the crosshair's point** in third person too, pitch included, as the game's first
   person aims them. In flight the game's steering keeps them at that angle to the surface.
-- **Lock-strafe in first person:** the game's L1 and L2 fire there, so the mod never holds them
-  while the game's first person shows (the game strafes there itself).
+- **Lock-strafe in first person:** the game's L1 and L2 fire there, so in play the mod never holds
+  them while the game's first person shows (the game strafes there itself).
 - **Tried and dropped:** the Modern camera brought into his eyes as a stand-in first person. It
   showed a faded Ratchet and lagged his jumps, and the carried first person needs neither.

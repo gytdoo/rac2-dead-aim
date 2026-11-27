@@ -4,6 +4,9 @@
 
 - Auto Gadgets: the Tractor Beam keeps hold of what it carries through a jump (it let go at once),
   and when it does let go with Fire held, your weapon comes back without firing.
+- Fixed: with the game's first-person option on, L1 and L2 were held back in menus and scenes too.
+- Planetoids: first person stays level through a vendor or a lift too, and a respawn no longer turns
+  the view. The Classic camera leaves the game's own first person as it is there.
 
 ## 0.1.1
 
