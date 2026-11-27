@@ -1,21 +1,25 @@
 <div align="center">
 
-# Dead Aim
+<img src="https://raw.githubusercontent.com/gytdoo/rac2-dead-aim/main/docs/images/logo.png" width="520" alt="Dead Aim">
 
 ### Deadlocked-style controls and camera for Ratchet & Clank: Going Commando
 
-[![OpenRAC mod](https://img.shields.io/badge/OpenRAC-mod-2563eb)](https://openrac.dev/)
-[![Going Commando](https://img.shields.io/badge/game-Going%20Commando-f59e0b)](#compatibility)
-[![Platforms](https://img.shields.io/badge/platforms-Linux%20%C2%B7%20Windows%20%C2%B7%20macOS%20%C2%B7%20Android-4b5563)](docs/versions.md#platforms)
-[![GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-16a34a)](LICENSE)
+[![OpenRAC mod](https://img.shields.io/badge/OpenRAC-mod-1d63bd)](https://openrac.dev/)
+[![Going Commando](https://img.shields.io/badge/game-Going%20Commando-5fb0ea)](#compatibility)
+[![Platforms](https://img.shields.io/badge/platforms-Linux%20%C2%B7%20Windows%20%C2%B7%20macOS%20%C2%B7%20Android-0b2a5c)](docs/versions.md#platforms)
+[![GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-2f8fe0)](LICENSE)
 
-<img src="https://raw.githubusercontent.com/gytdoo/rac2-dead-aim/main/docs/images/buttons-tab.png" width="49%" alt="The Buttons tab"> <img src="https://raw.githubusercontent.com/gytdoo/rac2-dead-aim/main/docs/images/camera-tab.png" width="49%" alt="The Camera tab">
+<a href="https://www.youtube.com/watch?v=5teKYFX7wrM"><img src="https://raw.githubusercontent.com/gytdoo/rac2-dead-aim/main/docs/images/showcase.jpg" width="80%" alt="Watch the Dead Aim showcase on YouTube"></a>
 
 </div>
 
 An [OpenRAC](https://openrac.dev/) mod that brings Going Commando's controls and camera in line with
 Up Your Arsenal and Deadlocked. All settings are in **Pause → Options → Dead Aim** and in the
 launcher.
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/gytdoo/rac2-dead-aim/main/docs/images/buttons-tab.png" width="49%" alt="The Buttons tab"> <img src="https://raw.githubusercontent.com/gytdoo/rac2-dead-aim/main/docs/images/camera-tab.png" width="49%" alt="The Camera tab">
+</p>
 
 ## Install
 
@@ -173,7 +177,8 @@ python3 .sdk/openrac-mod-sdk-*/tools/package_mod.py build/package/rac2_dead_aim 
 
 Link `build/package/rac2_dead_aim` into OpenRAC's plugin folder to try a build. Pushing a tag
 `v<version>` publishes a release the launcher can install. The controller drawing comes from
-`tools/make_art.py` (needs Pillow), and [docs/notes](docs/notes) holds the research behind the mod.
+`tools/make_art.py` (needs Pillow), the logo from `tools/make_logo.py` (needs rsvg-convert), and
+[docs/notes](docs/notes) holds the research behind the mod.
 
 </details>
 
@@ -195,7 +200,8 @@ Link `build/package/rac2_dead_aim` into OpenRAC's plugin folder to try a build. 
   [Auto Swingshot](https://github.com/glawks/auto-swingshot) (MIT, [notice](LICENSE-AUTO-SWINGSHOT)).
 - **Christian**: the wrench toss's arm pose and timing come from his
   [wrench throw](https://github.com/chistianh/wrench-throw) for Ratchet & Clank.
-- **Insomniac Games**: Up Your Arsenal and Deadlocked inspired the controls, the camera and the menu.
+- **Insomniac Games**: Up Your Arsenal and Deadlocked inspired the controls, the camera and the menu,
+  and Deadlocked's DreadZone emblem the logo (drawn for this mod).
 
 Licensed under [GPL-3.0-or-later](LICENSE). The SDK's build files and workflow carry the
 [OpenRAC Mod SDK MIT notice](LICENSE-OPENRAC-SDK).
